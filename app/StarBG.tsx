@@ -62,10 +62,40 @@ export default function StarBG() {
       root.style.setProperty("--stars-size", `${w}px ${h}px`);
     };
 
+    // Initial render
     draw();
-    const onResize = () => draw();
+
+    // Avoid re-drawing on minor viewport-height changes (mobile URL bar show/hide).
+    let lastW = window.innerWidth;
+    let lastH = window.innerHeight;
+    let raf = 0;
+    const schedule = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        const curW = window.innerWidth;
+        const curH = window.innerHeight;
+        // Only redraw if width changes noticeably or height changes a lot (orientation/UI change)
+        if (Math.abs(curW - lastW) > 8 || Math.abs(curH - lastH) > 120) {
+          lastW = curW;
+          lastH = curH;
+          draw();
+        }
+      });
+    };
+
+    const onResize = () => schedule();
+    const onOrientation = () => {
+      // Force redraw on orientation change
+      lastW = 0; lastH = 0; schedule();
+    };
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onOrientation);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onOrientation);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return null;
