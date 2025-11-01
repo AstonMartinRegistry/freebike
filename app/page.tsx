@@ -258,12 +258,13 @@ export default function Home() {
   return (
     <div
       style={{
-        height: "100vh",
+        minHeight: "100svh",
         boxSizing: "border-box",
         display: "flex",
         justifyContent: "center",
         alignItems: "flex-start",
         paddingTop: 16,
+        overflowX: "hidden",
       }}
     >
       <main style={{ display: "grid", gap: 16 }}>
