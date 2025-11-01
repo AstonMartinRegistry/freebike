@@ -62,24 +62,9 @@ export default function StarBG() {
       root.style.setProperty("--stars-size", `${w}px ${h}px`);
     };
 
-    // Initial render
     draw();
-
-    // Avoid redrawing on mobile address-bar scroll. Only redraw on meaningful width/orientation change
-    let lastW = window.innerWidth;
-    let lastH = window.innerHeight;
-    const onResize = () => {
-      const curW = window.innerWidth;
-      const curH = window.innerHeight;
-      const widthChanged = Math.abs(curW - lastW) >= 40; // orientation/layout change
-      const heightBigChange = Math.abs(curH - lastH) >= 160; // ignore small toolbar jiggles
-      if (widthChanged || heightBigChange) {
-        lastW = curW;
-        lastH = curH;
-        draw();
-      }
-    };
-    window.addEventListener("resize", onResize, { passive: true } as any);
+    const onResize = () => draw();
+    window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
