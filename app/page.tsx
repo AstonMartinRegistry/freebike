@@ -164,11 +164,13 @@ function Card({ title, onBook }: { title: string; onBook: () => void }) {
           style={{
             width: 350,
         minHeight: 160,
-        backgroundImage:
-          "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
-            border: "none",
+        backgroundImage: "none",
+        backgroundColor: "rgba(255,255,255,0.2)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        border: "1px solid rgba(255,255,255,0.9)",
             borderRadius: 8,
-        boxShadow: "0 6px 14px rgba(0,0,0,0.18), 0 2px 4px rgba(0,0,0,0.12)",
+        boxShadow: "2px 2px 0 #000",
             padding: 12,
             boxSizing: "border-box",
             display: "grid",
@@ -190,8 +192,8 @@ function Card({ title, onBook }: { title: string; onBook: () => void }) {
                 border: "none",
                 borderRadius: 6,
                 padding: 8,
-                backgroundColor: "#ddebff",
-                color: "#000000",
+                backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
+                color: "#ffffff",
                 textAlign: "left",
               }}
             >
@@ -226,7 +228,7 @@ function Card({ title, onBook }: { title: string; onBook: () => void }) {
             style={{
               appearance: "none",
               border: "none",
-              backgroundColor: "#5f6a8e",
+              backgroundImage: "linear-gradient(75deg, #172554 0%, #435078 100%)",
               color: "#ffffff",
               borderRadius: 6,
               padding: "6px 10px",
@@ -383,7 +385,7 @@ export default function Home() {
                   fontSize: 14,
                 }}
               >
-                bikers
+                top bikers
               </button>
               <button
                 type="button"
@@ -540,21 +542,23 @@ export default function Home() {
               {`At a banquet honoring the contestants, the host rose amid thunderous applause to toast not only Carconade but also the invention of the hour: "To the velocipede, gentlemen, that ingenious and charming machine, by now a faithful friend and inseparable companion to the solitary and weary traveler. To that useful invention, bequeathed by science to a stunned and grateful world. Yes, gentlemen, let us drink to this carriage of the future. To its perfection, to its success, and to its long and useful existence."`}
               <div style={{ marginTop: 6, fontSize: 15, fontStyle: "normal" }}>— Bicycle: The History</div>
             </div>
-            <div
+              <div
               style={{
                 width: 350,
-                minHeight: 80,
-                border: "none",
+                border: "6px solid transparent",
                 borderRadius: 8,
-                backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
+                borderImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%) 1",
+                backgroundColor: "rgba(255,255,255,0.10)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                  color: "#000000",
                 padding: 12,
                 boxSizing: "border-box",
-                color: "#ffffff",
-                boxShadow: "0 6px 14px rgba(0,0,0,0.18), 0 2px 4px rgba(0,0,0,0.12)",
+                boxShadow: "none",
               }}
             >
               <div style={{ marginBottom: 8 }}>An ongoing series of campus curiosities:</div>
-              <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.4 }}>
+              <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.5 }}>
                 <li>
                   Stanford Lab Regsitry (
                   <a href="https://stanfordlabregistry.com" target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>
@@ -713,15 +717,18 @@ export default function Home() {
                   key={b.email + idx}
                   style={{
                     width: 350,
-                    border: "1px solid #000",
+                    border: "1px solid #d9e8fd",
                     borderRadius: 0,
-                    backgroundColor: "rgba(255,255,255,0.6)",
+                    backgroundImage: "linear-gradient(90deg, rgba(242, 245, 255, 0.8) 0%, rgba(255,255,255,0.8) 100%)",
+                    backdropFilter: "blur(10px)",
+                    WebkitBackdropFilter: "blur(10px)",
                     padding: 8,
                     boxSizing: "border-box",
                     color: "#000",
                     display: "flex",
                     justifyContent: "space-between",
                     gap: 8,
+                    boxShadow: "3px 3px 0 rgba(0,0,0,0.75)",
                   }}
                 >
                   <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{b.email}</span>
