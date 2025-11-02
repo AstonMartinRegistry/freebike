@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import type { ReactNode } from "react";
 
 type CalendarProps = {
   bike: string;
@@ -158,19 +159,19 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
   );
 }
 
-function Card({ title, onBook, imageUrl }: { title: string; onBook: () => void; imageUrl?: string }) {
+function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook: () => void; imageUrl?: string; thirdContent?: ReactNode }) {
   return (
     <article
           style={{
             width: 350,
         minHeight: 160,
         backgroundImage: "none",
-        backgroundColor: "rgba(255,255,255,0.2)",
+        backgroundColor: "rgba(255,255,255,0.25)",
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
         border: "1px solid rgba(255,255,255,0.9)",
             borderRadius: 8,
-        boxShadow: "2px 2px 0 #000",
+        boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
             padding: 12,
             boxSizing: "border-box",
             display: "grid",
@@ -195,6 +196,8 @@ function Card({ title, onBook, imageUrl }: { title: string; onBook: () => void; 
                 backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
                 color: "#ffffff",
                 textAlign: "left",
+                display: "flex",
+                alignItems: "center",
               }}
             >
           {title}
@@ -222,8 +225,12 @@ function Card({ title, onBook, imageUrl }: { title: string; onBook: () => void; 
               style={{
                 border: "1px solid rgba(255,255,255,0.85)",
                 borderRadius: 6,
+                padding: 8,
+                color: "#000",
               }}
-            />
+            >
+              {thirdContent || null}
+            </div>
         <div
           style={{
                 border: "1px solid rgba(255,255,255,0.85)",
@@ -561,7 +568,7 @@ export default function Home() {
                 border: "6px solid transparent",
                 borderRadius: 8,
                 borderImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%) 1",
-                backgroundColor: "rgba(255,255,255,0.10)",
+                backgroundColor: "rgba(255,255,255,0.25)",
                 backdropFilter: "blur(10px)",
                 WebkitBackdropFilter: "blur(10px)",
                   color: "#000000",
@@ -616,7 +623,19 @@ export default function Home() {
         {showBikes ? (
         <div style={{ display: "grid", gap: 16 }}>
         {/* Card Two */}
-          <Card title="BIKE TWO" onBook={() => setExpandedTwo((v) => !v)} imageUrl="/images/bluemountainbike.jpg" />
+          <Card
+            title="Blue Mountain Bike"
+            onBook={() => setExpandedTwo((v) => !v)}
+            imageUrl="/images/bluemountainbike.jpg"
+            thirdContent={
+              <div>
+                <div>Make Model: Marin Bolinad Ridge 1 L 29"</div>
+                <div>Some of the gears work, brakes work.</div>
+                <div>Police ID: 110591</div>
+                <div>Serial Number: C21067624</div>
+              </div>
+            }
+          />
           {expandedTwo ? (
             <section
               aria-label="booking panel"
@@ -727,9 +746,12 @@ export default function Home() {
                 color: "#ffffff",
                 border: "1px solid rgba(255,255,255,0.9)",
                 borderRadius: 6,
-                padding: 8,
+                minHeight: 44,
+                padding: 10,
                 boxSizing: "border-box",
-                boxShadow: "2px 2px 0 rgba(0,0,0,0.75)",
+                boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
+                display: "flex",
+                alignItems: "center",
                 textAlign: "left",
               }}
             >
@@ -748,7 +770,7 @@ export default function Home() {
                     border: "1px solid rgba(255,255,255,0.9)",
                     borderRadius: 8,
                     backgroundImage: "none",
-                    backgroundColor: "rgba(255,255,255,0.1)",
+                    backgroundColor: "rgba(255,255,255,0.25)",
                     backdropFilter: "blur(10px)",
                     WebkitBackdropFilter: "blur(10px)",
                     padding: 6,
@@ -757,7 +779,7 @@ export default function Home() {
                     display: "flex",
                     justifyContent: "space-between",
                     gap: 6,
-                    boxShadow: "2px 2px 0 rgba(0,0,0,0.75)",
+                    boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
                   }}
                 >
                   <span
