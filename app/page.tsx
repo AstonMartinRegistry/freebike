@@ -158,7 +158,7 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
   );
 }
 
-function Card({ title, onBook }: { title: string; onBook: () => void }) {
+function Card({ title, onBook, imageUrl }: { title: string; onBook: () => void; imageUrl?: string }) {
   return (
     <article
           style={{
@@ -182,7 +182,7 @@ function Card({ title, onBook }: { title: string; onBook: () => void }) {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr",
-          gridTemplateRows: "repeat(4, 1fr)",
+          gridTemplateRows: imageUrl ? "auto 200px 1fr auto" : "auto 1fr 1fr auto",
               gap: 8,
               height: "100%",
             }}
@@ -201,19 +201,32 @@ function Card({ title, onBook }: { title: string; onBook: () => void }) {
             </div>
             <div
               style={{
-                border: "none",
+                border: "1px solid rgba(255,255,255,0.85)",
                 borderRadius: 6,
+                overflow: "hidden",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
               }}
-            />
+            >
+              {imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt={`${title} image`}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 6, display: "block" }}
+                />
+              ) : null}
+            </div>
             <div
               style={{
-                border: "none",
+                border: "1px solid rgba(255,255,255,0.85)",
                 borderRadius: 6,
               }}
             />
         <div
           style={{
-            border: "none",
+                border: "1px solid rgba(255,255,255,0.85)",
             borderRadius: 6,
             display: "flex",
             alignItems: "center",
@@ -603,7 +616,7 @@ export default function Home() {
         {showBikes ? (
         <div style={{ display: "grid", gap: 16 }}>
         {/* Card Two */}
-          <Card title="BIKE TWO" onBook={() => setExpandedTwo((v) => !v)} />
+          <Card title="BIKE TWO" onBook={() => setExpandedTwo((v) => !v)} imageUrl="/images/bluemountainbike.jpg" />
           {expandedTwo ? (
             <section
               aria-label="booking panel"
