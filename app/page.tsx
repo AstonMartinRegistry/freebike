@@ -707,6 +707,21 @@ export default function Home() {
 
         {showBikers ? (
           <section aria-label="bikers panel" style={{ display: "grid", gap: 8 }}>
+            <div
+              style={{
+                width: 350,
+                backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
+                color: "#ffffff",
+                border: "1px solid rgba(255,255,255,0.9)",
+                borderRadius: 6,
+                padding: 8,
+                boxSizing: "border-box",
+                boxShadow: "2px 2px 0 rgba(0,0,0,0.75)",
+                textAlign: "left",
+              }}
+            >
+              Name — fav bike — # of bookings
+            </div>
             {bikersLoading ? (
               <div style={{ width: 350, color: "#000" }}>Loading…</div>
             ) : bikers.length === 0 ? (
@@ -717,21 +732,35 @@ export default function Home() {
                   key={b.email + idx}
                   style={{
                     width: 350,
-                    border: "1px solid #d9e8fd",
-                    borderRadius: 0,
-                    backgroundImage: "linear-gradient(90deg, rgba(242, 245, 255, 0.8) 0%, rgba(255,255,255,0.8) 100%)",
+                    border: "1px solid rgba(255,255,255,0.9)",
+                    borderRadius: 8,
+                    backgroundImage: "none",
+                    backgroundColor: "rgba(255,255,255,0.1)",
                     backdropFilter: "blur(10px)",
                     WebkitBackdropFilter: "blur(10px)",
-                    padding: 8,
+                    padding: 6,
                     boxSizing: "border-box",
                     color: "#000",
                     display: "flex",
                     justifyContent: "space-between",
-                    gap: 8,
-                    boxShadow: "3px 3px 0 rgba(0,0,0,0.75)",
+                    gap: 6,
+                    boxShadow: "2px 2px 0 rgba(0,0,0,0.75)",
                   }}
                 >
-                  <span style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{b.email}</span>
+                  <span
+                    style={{
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                      backgroundImage: "linear-gradient(75deg, #172554 0%, #435078 100%)",
+                      color: "#ffffff",
+                      borderRadius: 6,
+                      padding: "4px 8px",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {b.email}
+                  </span>
                   <span>{b.favourite_bike}</span>
                   <span>#{b.booking_count}</span>
       </div>
