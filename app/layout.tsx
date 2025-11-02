@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import StarBG from "./StarBG";
-import MobileBGInit from "./MobileBGInit";
 import localFont from "next/font/local";
 
 const mondwest = localFont({
@@ -52,7 +51,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             imageRendering: "pixelated",
           }}
         />
-        <MobileBGInit />
         <StarBG />
         
         <style>{`

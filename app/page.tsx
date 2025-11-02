@@ -187,11 +187,11 @@ function Card({ title, onBook }: { title: string; onBook: () => void }) {
           >
             <div
               style={{
-                border: "1px solid rgba(255,255,255,0.9)",
+                border: "none",
                 borderRadius: 6,
                 padding: 8,
-            backgroundColor: "#ffffff",
-            color: "#000000",
+                backgroundColor: "#ddebff",
+                color: "#000000",
                 textAlign: "left",
               }}
             >
@@ -199,19 +199,19 @@ function Card({ title, onBook }: { title: string; onBook: () => void }) {
             </div>
             <div
               style={{
-                border: "1px solid rgba(255,255,255,0.9)",
+                border: "none",
                 borderRadius: 6,
               }}
             />
             <div
               style={{
-                border: "1px solid rgba(255,255,255,0.9)",
+                border: "none",
                 borderRadius: 6,
               }}
             />
         <div
           style={{
-            border: "1px solid rgba(255,255,255,0.9)",
+            border: "none",
             borderRadius: 6,
             display: "flex",
             alignItems: "center",
@@ -289,7 +289,7 @@ export default function Home() {
           >
             <div
               style={{
-                border: "1px solid #000",
+                border: "none",
                 borderRadius: 6,
                 minHeight: 64,
                 backgroundColor: "transparent",
@@ -303,11 +303,11 @@ export default function Home() {
                 boxSizing: "border-box",
               }}
             >
-              <div style={{ fontSize: 36, letterSpacing: 0.2 }}>Stanford Free Bike Network</div>
+              <div style={{ fontSize: 36, letterSpacing: 0.2 }}>Stanford Free Bike Registry</div>
             </div>
             <div
               style={{
-                border: "1px solid #000",
+                border: "none",
                 borderRadius: 6,
                 minHeight: 44,
                 backgroundColor: "transparent",
@@ -525,31 +525,20 @@ export default function Home() {
                 minHeight: 80,
                 border: "none",
                 borderRadius: 8,
-                backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
+                backgroundImage: "none",
+                backgroundColor: "transparent",
                 padding: 12,
                 boxSizing: "border-box",
-                color: "#ffffff",
-                boxShadow: "0 6px 14px rgba(0,0,0,0.18), 0 2px 4px rgba(0,0,0,0.12)",
-              }}
-            >
-              Is this really free? Yes, I got carried away buying bikes from the police impound and did not know what to do with the extra bikes hence the free bike network
-            </div>
-            <div
-              style={{
-                width: 350,
-                minHeight: 80,
-                border: "none",
-                borderRadius: 8,
-                backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
-                padding: 12,
-                boxSizing: "border-box",
-                color: "#ffffff",
+                color: "#000000",
                 whiteSpace: "pre-wrap",
                 lineHeight: 1.4,
-                boxShadow: "0 6px 14px rgba(0,0,0,0.18), 0 2px 4px rgba(0,0,0,0.12)",
+                boxShadow: "none",
+                fontStyle: "italic",
+                fontSize: 15,
               }}
             >
               {`At a banquet honoring the contestants, the host rose amid thunderous applause to toast not only Carconade but also the invention of the hour: "To the velocipede, gentlemen, that ingenious and charming machine, by now a faithful friend and inseparable companion to the solitary and weary traveler. To that useful invention, bequeathed by science to a stunned and grateful world. Yes, gentlemen, let us drink to this carriage of the future. To its perfection, to its success, and to its long and useful existence."`}
+              <div style={{ marginTop: 6, fontSize: 15, fontStyle: "normal" }}>— Bicycle: The History</div>
             </div>
             <div
               style={{
@@ -564,7 +553,7 @@ export default function Home() {
                 boxShadow: "0 6px 14px rgba(0,0,0,0.18), 0 2px 4px rgba(0,0,0,0.12)",
               }}
             >
-              <div style={{ marginBottom: 8 }}>an ongoing series of campus shenanigans:</div>
+              <div style={{ marginBottom: 8 }}>An ongoing series of campus curiosities:</div>
               <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.4 }}>
                 <li>
                   Stanford Lab Regsitry (
@@ -580,7 +569,7 @@ export default function Home() {
                   </a>
                   )
                 </li>
-                <li>Stanford Free Bike Network</li>
+                <li>Stanford Free Bike Registry</li>
               </ul>
             </div>
             <div
@@ -589,15 +578,17 @@ export default function Home() {
                 minHeight: 44,
                 border: "none",
                 borderRadius: 8,
-                backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
+                backgroundImage: "none",
+                backgroundColor: "transparent",
                 padding: 12,
                 boxSizing: "border-box",
-                color: "#ffffff",
+                color: "#000000",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 textAlign: "center",
-                boxShadow: "0 6px 14px rgba(0,0,0,0.18), 0 2px 4px rgba(0,0,0,0.12)",
+                boxShadow: "none",
+                fontSize: 15,
               }}
             >
               Ver Natus
