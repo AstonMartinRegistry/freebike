@@ -62,10 +62,16 @@ export default function StarBG() {
       root.style.setProperty("--stars-size", `${w}px ${h}px`);
     };
 
+    const ua = typeof navigator !== "undefined" ? navigator.userAgent : "";
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
+
     draw();
-    const onResize = () => draw();
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    if (!isMobile) {
+      const onResize = () => draw();
+      window.addEventListener("resize", onResize);
+      return () => window.removeEventListener("resize", onResize);
+    }
+    return () => {};
   }, []);
 
   return null;
