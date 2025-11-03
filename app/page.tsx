@@ -169,7 +169,7 @@ function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook
         backgroundColor: "rgba(255,255,255,0.25)",
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
-        border: "1px solid rgba(255,255,255,0.9)",
+        border: "none",
             borderRadius: 8,
         boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
             padding: 12,
@@ -198,13 +198,15 @@ function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook
                 textAlign: "left",
                 display: "flex",
                 alignItems: "center",
+                fontSize: 16,
+                lineHeight: 1,
               }}
             >
           {title}
             </div>
             <div
               style={{
-                border: "1px solid rgba(255,255,255,0.85)",
+                border: "none",
                 borderRadius: 6,
                 overflow: "hidden",
                 display: "flex",
@@ -223,9 +225,9 @@ function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook
             </div>
             <div
               style={{
-                border: "1px solid rgba(255,255,255,0.85)",
+                border: "none",
                 borderRadius: 6,
-                padding: 8,
+                padding: 0,
                 color: "#000",
               }}
             >
@@ -233,13 +235,13 @@ function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook
         </div>
         <div
           style={{
-                border: "1px solid rgba(255,255,255,0.85)",
+                border: "none",
             borderRadius: 6,
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
-            padding: 8,
-            gap: 8,
+            padding: 0,
+            gap: 0,
           }}
         >
           <button
@@ -254,9 +256,12 @@ function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook
               padding: "6px 10px",
               cursor: "pointer",
               fontFamily: "inherit",
+              fontSize: 16,
+              lineHeight: 1,
+              fontWeight: 400,
             }}
           >
-            book
+            Book
           </button>
         </div>
       </div>
@@ -628,11 +633,21 @@ export default function Home() {
             onBook={() => setExpandedTwo((v) => !v)}
             imageUrl="/images/bluemountainbike.jpg"
             thirdContent={
-              <div>
-                <div>Make Model: Marin Bolinad Ridge 1 L 29"</div>
-                <div>Some of the gears work, brakes work.</div>
-                <div>Police ID: 110591</div>
-                <div>Serial Number: C21067624</div>
+              <div style={{ display: "grid", gap: 8 }}>
+                <div style={{ backgroundColor: "rgba(255,255,255,0.25)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ fontSize: 11, opacity: 0.7 }}>Make & Model</div>
+                  <div style={{ fontWeight: 600 }}>Marin Bolinad Ridge 1 L 29"</div>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.25)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Serial #</div>
+                    <div style={{ fontWeight: 600 }}>C21067624</div>
+                  </div>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.25)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Police ID</div>
+                    <div style={{ fontWeight: 600 }}>110591</div>
+                  </div>
+                </div>
               </div>
             }
           />
