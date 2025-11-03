@@ -230,7 +230,7 @@ function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook
               }}
             >
               {thirdContent || null}
-            </div>
+        </div>
         <div
           style={{
                 border: "1px solid rgba(255,255,255,0.85)",
@@ -287,6 +287,7 @@ export default function Home() {
         alignItems: "flex-start",
         paddingTop: 16,
         overflowX: "hidden",
+        overscrollBehavior: "none",
       }}
     >
       <main style={{ display: "grid", gap: 16 }}>
@@ -741,7 +742,7 @@ export default function Home() {
           aria-label="spacer"
           style={{
             width: 350,
-            minHeight: 400,
+            minHeight: 300,
             backgroundColor: "transparent",
             border: "none",
             borderRadius: 8,
@@ -768,7 +769,7 @@ export default function Home() {
               }}
             >
               Name — fav bike — # of bookings
-            </div>
+          </div>
             {bikersLoading ? (
               <div style={{ width: 350, color: "#000" }}>Loading…</div>
             ) : bikers.length === 0 ? (
