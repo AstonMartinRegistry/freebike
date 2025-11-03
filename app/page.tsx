@@ -280,7 +280,7 @@ export default function Home() {
   return (
     <div
       style={{
-        minHeight: "calc(100svh + 200px)",
+        minHeight: "100svh",
         boxSizing: "border-box",
         display: "flex",
         justifyContent: "center",
@@ -736,7 +736,18 @@ export default function Home() {
           ) : null}
         </div>
         ) : null}
-        
+        {showBikes ? (
+        <div
+          aria-label="spacer"
+          style={{
+            width: 350,
+            minHeight: 300,
+            backgroundColor: "transparent",
+            border: "none",
+            borderRadius: 8,
+          }}
+        />
+        ) : null}
 
         {showBikers ? (
           <section aria-label="bikers panel" style={{ display: "grid", gap: 8 }}>
