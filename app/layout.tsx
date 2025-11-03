@@ -42,13 +42,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             aria-hidden
             style={{
               position: "fixed",
-              inset: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: 420,
               pointerEvents: "none",
               zIndex: 2,
               backgroundImage: "var(--stars)",
               backgroundSize: "var(--stars-size, auto)",
               backgroundRepeat: "no-repeat",
-              backgroundPosition: "0 0",
+              backgroundPosition: "50% 100%",
             }}
           />
           <div
