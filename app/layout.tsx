@@ -54,8 +54,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <StarBG />
         
         <style>{`
-          html, body { height: 100%; min-height: 100svh; overflow-x: hidden; overscroll-behavior: none; }
-          body { overscroll-behavior-y: none; }
+          html, body { height: 100%; min-height: 100svh; overflow-x: hidden; overscroll-behavior-x: none; overscroll-behavior-y: auto; }
+          body { overscroll-behavior-y: auto; }
           /* Grain overlay via SVG fractal noise */
           body::before {
             content: "";

@@ -287,7 +287,6 @@ export default function Home() {
         alignItems: "flex-start",
         paddingTop: 16,
         overflowX: "hidden",
-        overscrollBehavior: "none",
       }}
     >
       <main style={{ display: "grid", gap: 16 }}>
