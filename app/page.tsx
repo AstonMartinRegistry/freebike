@@ -815,6 +815,15 @@ export default function Home() {
             )}
           </section>
         ) : null}
+        {/* Bottom slack to reveal more of the fixed background image */}
+        <div
+          aria-label="bottom-slack"
+          style={{
+            width: 350,
+            minHeight: 180,
+            backgroundColor: "transparent",
+          }}
+        />
       </main>
     </div>
   );
