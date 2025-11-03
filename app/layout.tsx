@@ -46,7 +46,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               "linear-gradient(180deg, rgba(205,225,255,0.28) 0%, rgba(200,220,255,0.16) 55%, rgba(190,210,245,0.10) 100%)",
             backgroundSize: "500px auto, var(--stars-size, auto), auto, auto, auto, auto, auto",
             backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
-            backgroundPosition: "calc(50% - 15px) 100%, 0 100%, 0 100%, 0 100%, 0 100%, 0 100%, 0 100%",
+            // Anchor the bike image to the viewport bottom; adjust with --bike-bottom if needed
+            backgroundPosition: "calc(50% - 15px) calc(100% - var(--bike-bottom, 0px)), 0 0, 0 0, 0 0, 0 0, 0 0, 0 0",
             backgroundBlendMode: "normal, normal, multiply, screen, screen, multiply, normal",
             imageRendering: "pixelated",
           }}
