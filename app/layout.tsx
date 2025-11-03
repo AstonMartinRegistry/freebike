@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               "linear-gradient(180deg, rgba(205,225,255,0.28) 0%, rgba(200,220,255,0.16) 55%, rgba(190,210,245,0.10) 100%)",
             backgroundSize: "500px auto, var(--stars-size, auto), auto, auto, auto, auto, auto",
             backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
-            backgroundPosition: "50% 100%, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0",
+            backgroundPosition: "var(--bike-pos, calc(50% - 15px) calc(100% + 173px)), 0 0, 0 0, 0 0, 0 0, 0 0, 0 0",
             backgroundBlendMode: "normal, normal, multiply, screen, screen, multiply, normal",
             imageRendering: "pixelated",
           }}
@@ -54,6 +54,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <StarBG />
         
         <style>{`
+          :root { --bike-pos: calc(50% - 15px) calc(100% + 173px); }
+          @media (max-width: 640px) {
+            :root { --bike-pos: calc(50% - 15px) calc(100% + 173px); }
+          }
           html, body { height: 100%; min-height: 100svh; overflow-x: hidden; overscroll-behavior-x: none; overscroll-behavior-y: auto; }
           body { overscroll-behavior-y: auto; }
           /* Grain overlay via SVG fractal noise */
