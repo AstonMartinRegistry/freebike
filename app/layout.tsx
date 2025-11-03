@@ -22,7 +22,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           aria-hidden
           style={{
             position: "fixed",
-            inset: 0,
+            left: 0,
+            right: 0,
+            bottom: "-173px",
+            top: "auto",
+            height: "calc(100svh + 173px)",
             pointerEvents: "none",
             zIndex: -2,
             backgroundImage:
@@ -51,7 +55,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           aria-hidden
           style={{
             position: "fixed",
-            inset: 0,
+            left: 0,
+            right: 0,
+            bottom: "-173px",
+            top: "auto",
+            height: "calc(100svh + 173px)",
             pointerEvents: "none",
             zIndex: -1,
             backgroundImage: "var(--stars)",
