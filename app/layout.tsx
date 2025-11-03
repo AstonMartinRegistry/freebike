@@ -22,11 +22,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           aria-hidden
           style={{
             position: "fixed",
-            left: 0,
-            right: 0,
-            top: "calc(-1 * var(--bg-overscan, 160px))",
-            bottom: "auto",
-            height: "calc(100svh + var(--bg-overscan, 160px))",
+            inset: 0,
             pointerEvents: "none",
             zIndex: -1,
             backgroundImage:
@@ -50,7 +46,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               "linear-gradient(180deg, rgba(205,225,255,0.28) 0%, rgba(200,220,255,0.16) 55%, rgba(190,210,245,0.10) 100%)",
             backgroundSize: "500px auto, var(--stars-size, auto), auto, auto, auto, auto, auto",
             backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
-            backgroundPosition: "calc(50% - 15px) calc(100% + 173px), 0 var(--bg-overscan, 160px), 0 0, 0 0, 0 0, 0 0, 0 0",
+            backgroundPosition: "calc(50% - 15px) 100%, 0 100%, 0 100%, 0 100%, 0 100%, 0 100%, 0 100%",
             backgroundBlendMode: "normal, normal, multiply, screen, screen, multiply, normal",
             imageRendering: "pixelated",
           }}
@@ -104,11 +100,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             filter: blur(140px);
             opacity: 0.28;
             mix-blend-mode: screen;
-          }
-          
-          /* On small screens, anchor the background container to the bottom so the overscan extends upward */
-          @media (max-width: 600px) {
-            #fixed-bg { top: auto; bottom: 0; height: calc(100svh + var(--bg-overscan, 160px)); }
           }
           
         `}</style>
