@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             zIndex: -2,
             backgroundImage:
               // single sunrise circle and soft gradients
-              "radial-gradient(400px circle at 50% 104%, \
+              "radial-gradient(460px circle at 50% 96%, \
                 rgba(23,37,84,0.85) 0%, \
                 rgba(23,37,84,0.60) 35%, \
                 rgba(23,37,84,0.35) 55%, \
@@ -119,8 +119,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             opacity: 0.55;
             mix-blend-mode: soft-light;
             /* Confine to the sunrise circle area */
-            -webkit-mask-image: radial-gradient(400px circle at 50% 104%, #000 0%, #000 70%, transparent 86%);
-            mask-image: radial-gradient(400px circle at 50% 104%, #000 0%, #000 70%, transparent 86%);
+            -webkit-mask-image: radial-gradient(460px circle at 50% 96%, #000 0%, #000 70%, transparent 86%);
+            mask-image: radial-gradient(460px circle at 50% 96%, #000 0%, #000 70%, transparent 86%);
             -webkit-mask-repeat: no-repeat;
             mask-repeat: no-repeat;
           }
