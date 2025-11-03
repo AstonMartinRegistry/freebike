@@ -815,7 +815,6 @@ export default function Home() {
             )}
           </section>
         ) : null}
-        
       </main>
     </div>
   );

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import StarBG from "./StarBG";
 import localFont from "next/font/local";
+import ViewportSync from "./ViewportSync";
 
 const mondwest = localFont({
   src: "../mondwest-neuebit-font-1761704288-0/ppmondwest-regular.otf",
@@ -67,6 +68,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           />
         </div>
         <StarBG />
+        <ViewportSync />
         
         <style>{`
           html, body { height: 100%; min-height: 100svh; overflow-x: hidden; overscroll-behavior-x: none; overscroll-behavior-y: auto; }
