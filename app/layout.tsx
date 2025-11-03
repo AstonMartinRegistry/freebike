@@ -24,14 +24,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             position: "fixed",
             left: 0,
             right: 0,
-            bottom: "-173px",
-            top: "auto",
-            height: "calc(100svh + 173px)",
+            top: "calc(-1 * var(--bg-overscan, 160px))",
+            bottom: "auto",
+            height: "calc(100svh + var(--bg-overscan, 160px))",
             pointerEvents: "none",
-            zIndex: -2,
+            zIndex: -1,
             backgroundImage:
-              // single sunrise circle and soft gradients
-              "radial-gradient(460px circle at 50% 96%, \
+              // pixelated white bike only
+              "url(\"/images/whitepixel.png\"), " +
+              // starfield as dynamic data-URL layer (scrolls with content)
+              "var(--stars), " +
+              // single sunrise circle: darker blue center with smooth multi-stop fade
+              "radial-gradient(400px circle at 50% 104%, \
                 rgba(23,37,84,0.85) 0%, \
                 rgba(23,37,84,0.60) 35%, \
                 rgba(23,37,84,0.35) 55%, \
@@ -39,53 +43,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 rgba(23,37,84,0.02) 85%, \
                 rgba(23,37,84,0.00) 92%\
               ), " +
+              // white blooms and faint greys, mixed around
               "radial-gradient(900px circle at 14% 18%, rgba(255,255,255,0.75), rgba(255,255,255,0) 55%), " +
               "radial-gradient(780px circle at 84% 24%, rgba(255,255,255,0.68), rgba(255,255,255,0) 58%), " +
               "radial-gradient(720px circle at 26% 78%, rgba(229,231,235,0.28), rgba(229,231,235,0) 60%), " +
               "linear-gradient(180deg, rgba(205,225,255,0.28) 0%, rgba(200,220,255,0.16) 55%, rgba(190,210,245,0.10) 100%)",
-            backgroundSize: "auto, auto, auto, auto, auto",
-            backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
-            backgroundPosition: "center bottom, center bottom, center bottom, center bottom, center bottom",
-            backgroundBlendMode: "multiply, screen, screen, multiply, normal",
+            backgroundSize: "500px auto, var(--stars-size, auto), auto, auto, auto, auto, auto",
+            backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
+            backgroundPosition: "calc(50% - 15px) calc(100% + 173px), 0 var(--bg-overscan, 160px), 0 0, 0 0, 0 0, 0 0, 0 0",
+            backgroundBlendMode: "normal, normal, multiply, screen, screen, multiply, normal",
             imageRendering: "pixelated",
-          }}
-        />
-        <div
-          id="stars-layer"
-          aria-hidden
-          style={{
-            position: "fixed",
-            left: 0,
-            right: 0,
-            bottom: "-173px",
-            top: "auto",
-            height: "calc(100svh + 173px)",
-            pointerEvents: "none",
-            zIndex: -1,
-            backgroundImage: "var(--stars)",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "var(--stars-size, cover)",
-            backgroundPosition: "center bottom",
-            imageRendering: "pixelated",
-          }}
-        />
-        <div
-          id="bike-layer"
-          aria-hidden
-          style={{
-            position: "fixed",
-            left: "50%",
-            bottom: "-173px",
-            width: 500,
-            height: 500,
-            transform: "translateX(-50%) translateX(-15px)",
-            backgroundImage: "url('/images/whitepixel.png')",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center bottom",
-            backgroundSize: "500px auto",
-            imageRendering: "pixelated",
-            pointerEvents: "none",
-            zIndex: -1,
           }}
         />
         <StarBG />
@@ -119,8 +86,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             opacity: 0.55;
             mix-blend-mode: soft-light;
             /* Confine to the sunrise circle area */
-            -webkit-mask-image: radial-gradient(460px circle at 50% 96%, #000 0%, #000 70%, transparent 86%);
-            mask-image: radial-gradient(460px circle at 50% 96%, #000 0%, #000 70%, transparent 86%);
+            -webkit-mask-image: radial-gradient(400px circle at 50% 104%, #000 0%, #000 70%, transparent 86%);
+            mask-image: radial-gradient(400px circle at 50% 104%, #000 0%, #000 70%, transparent 86%);
             -webkit-mask-repeat: no-repeat;
             mask-repeat: no-repeat;
           }
@@ -137,6 +104,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             filter: blur(140px);
             opacity: 0.28;
             mix-blend-mode: screen;
+          }
+          
+          /* On small screens, anchor the background container to the bottom so the overscan extends upward */
+          @media (max-width: 600px) {
+            #fixed-bg { top: auto; bottom: 0; height: calc(100svh + var(--bg-overscan, 160px)); }
           }
           
         `}</style>
