@@ -736,6 +736,18 @@ export default function Home() {
           ) : null}
         </div>
         ) : null}
+        {showBikes ? (
+        <div
+          aria-label="spacer"
+          style={{
+            width: 350,
+            minHeight: 400,
+            backgroundColor: "transparent",
+            border: "none",
+            borderRadius: 8,
+          }}
+        />
+        ) : null}
 
         {showBikers ? (
           <section aria-label="bikers panel" style={{ display: "grid", gap: 8 }}>
