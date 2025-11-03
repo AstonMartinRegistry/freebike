@@ -44,12 +44,22 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             aria-hidden
             style={{
               position: "fixed",
-              inset: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: 420,
               pointerEvents: "none",
-              zIndex: -1,
-              backgroundImage: "radial-gradient(400px circle at 50% 104%, rgba(23,37,84,0.85) 0%, rgba(23,37,84,0.60) 35%, rgba(23,37,84,0.35) 55%, rgba(23,37,84,0.12) 70%, rgba(23,37,84,0.02) 85%, rgba(23,37,84,0.00) 92%)",
+              backgroundImage:
+                "radial-gradient(400px circle at 50% 104%, \
+                  rgba(23,37,84,0.85) 0%, \
+                  rgba(23,37,84,0.60) 35%, \
+                  rgba(23,37,84,0.35) 55%, \
+                  rgba(23,37,84,0.12) 70%, \
+                  rgba(23,37,84,0.02) 85%, \
+                  rgba(23,37,84,0.00) 92%\
+                )",
               backgroundRepeat: "no-repeat",
-              backgroundPosition: "0 0",
+              backgroundPosition: "50% 100%",
             }}
           />
           <img
