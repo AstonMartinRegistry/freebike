@@ -26,8 +26,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             pointerEvents: "none",
             zIndex: -1,
             backgroundImage:
-              // pixelated white bike only
-              "url(\"/images/whitepixel.png\"), " +
               // starfield as dynamic data-URL layer (scrolls with content)
               "var(--stars), " +
               // single sunrise circle: darker blue center with smooth multi-stop fade
@@ -44,11 +42,30 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               "radial-gradient(780px circle at 84% 24%, rgba(255,255,255,0.68), rgba(255,255,255,0) 58%), " +
               "radial-gradient(720px circle at 26% 78%, rgba(229,231,235,0.28), rgba(229,231,235,0) 60%), " +
               "linear-gradient(180deg, rgba(205,225,255,0.28) 0%, rgba(200,220,255,0.16) 55%, rgba(190,210,245,0.10) 100%)",
-            backgroundSize: "500px auto, var(--stars-size, auto), auto, auto, auto, auto, auto",
-            backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
-            backgroundPosition: "calc(50% - 15px) calc(100% + 173px), 0 0, 0 0, 0 0, 0 0, 0 0, 0 0",
-            backgroundBlendMode: "normal, normal, multiply, screen, screen, multiply, normal",
+            backgroundSize: "var(--stars-size, auto), auto, auto, auto, auto, auto",
+            backgroundRepeat: "no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat",
+            backgroundPosition: "0 0, 0 0, 0 0, 0 0, 0 0, 0 0",
+            backgroundBlendMode: "normal, multiply, screen, screen, multiply, normal",
             imageRendering: "pixelated",
+          }}
+        />
+        <div
+          id="bike-layer"
+          aria-hidden
+          style={{
+            position: "fixed",
+            left: "50%",
+            bottom: "-173px",
+            width: 500,
+            height: 500,
+            transform: "translateX(-50%) translateX(-15px)",
+            backgroundImage: "url('/images/whitepixel.png')",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center bottom",
+            backgroundSize: "500px auto",
+            imageRendering: "pixelated",
+            pointerEvents: "none",
+            zIndex: -1,
           }}
         />
         <StarBG />
