@@ -636,16 +636,16 @@ export default function Home() {
               <div style={{ display: "grid", gap: 8 }}>
                 <div style={{ backgroundColor: "rgba(255,255,255,0.25)", borderRadius: 6, padding: "6px 8px" }}>
                   <div style={{ fontSize: 11, opacity: 0.7 }}>Make & Model</div>
-                  <div style={{ fontWeight: 600 }}>Marin Bolinad Ridge 1 L 29"</div>
+                  <div>Marin Bolinad Ridge 1 L 29"</div>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                   <div style={{ backgroundColor: "rgba(255,255,255,0.25)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Serial #</div>
-                    <div style={{ fontWeight: 600 }}>C21067624</div>
+                    <div>C21067624</div>
                   </div>
                   <div style={{ backgroundColor: "rgba(255,255,255,0.25)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Police ID</div>
-                    <div style={{ fontWeight: 600 }}>110591</div>
+                    <div>110591</div>
                   </div>
                 </div>
               </div>
