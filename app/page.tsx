@@ -280,7 +280,7 @@ export default function Home() {
   return (
     <div
       style={{
-        minHeight: "100svh",
+        minHeight: "100dvh",
         boxSizing: "border-box",
         display: "flex",
         justifyContent: "center",
