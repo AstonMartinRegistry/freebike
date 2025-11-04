@@ -45,13 +45,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               left: 0,
               right: 0,
               bottom: 0,
-              height: 420,
+              height: 600,
               pointerEvents: "none",
               zIndex: 2,
               backgroundImage: "var(--stars)",
               backgroundSize: "var(--stars-size, auto)",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "50% 100%",
+              // Circular fade from bottom center with extended, soft falloff
+              WebkitMaskImage: "radial-gradient(700px circle at 50% 104%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 45%, rgba(0,0,0,0.65) 65%, rgba(0,0,0,0.35) 82%, rgba(0,0,0,0.15) 92%, rgba(0,0,0,0) 100%)",
+              maskImage: "radial-gradient(700px circle at 50% 104%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 45%, rgba(0,0,0,0.65) 65%, rgba(0,0,0,0.35) 82%, rgba(0,0,0,0.15) 92%, rgba(0,0,0,0) 100%)",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
             }}
           />
           <div
@@ -75,6 +80,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 )",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "50% 100%",
+              // Circular fade from bottom center with extended, soft falloff
+              WebkitMaskImage: "radial-gradient(520px circle at 50% 104%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 45%, rgba(0,0,0,0.65) 65%, rgba(0,0,0,0.35) 82%, rgba(0,0,0,0.15) 92%, rgba(0,0,0,0) 100%)",
+              maskImage: "radial-gradient(520px circle at 50% 104%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 45%, rgba(0,0,0,0.65) 65%, rgba(0,0,0,0.35) 82%, rgba(0,0,0,0.15) 92%, rgba(0,0,0,0) 100%)",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
             }}
           />
           <img

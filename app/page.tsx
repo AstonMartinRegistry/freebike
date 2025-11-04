@@ -305,6 +305,11 @@ export default function Home() {
             borderRadius: 8,
             padding: 0,
             boxSizing: "border-box",
+            position: "sticky",
+            top: 0,
+            zIndex: 10,
+            transform: "translateZ(0)",
+            willChange: "transform",
           }}
         >
           <div
