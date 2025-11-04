@@ -633,11 +633,17 @@ export default function Home() {
             imageUrl="/images/bluemountainbike.jpg"
             thirdContent={
               <div style={{ display: "grid", gap: 8 }}>
-               <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
-                  <div style={{ fontSize: 11, opacity: 0.7 }}>Make & Model</div>
-                  <div>Marin Bolinad Ridge 1 L 29"</div>
+                <div style={{ display: "grid", gridTemplateColumns: "5fr 1fr", gap: 8 }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Make &amp; Model</div>
+                    <div>Marin Bolinad Ridge 1 29"</div>
+                  </div>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Size</div>
+                    <div>L</div>
+                  </div>
                 </div>
-                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr 2fr", gap: 8 }}>
                   <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Serial #</div>
                     <div>C21067624</div>
@@ -645,6 +651,10 @@ export default function Home() {
                   <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Police ID</div>
                     <div>110591</div>
+                  </div>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Location</div>
+                    <div>rains</div>
                   </div>
                 </div>
               </div>
