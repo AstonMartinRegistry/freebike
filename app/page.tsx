@@ -169,7 +169,7 @@ function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook
         backgroundColor: "rgba(255,255,255,0.25)",
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
-            border: "none",
+            border: "1px solid #f0f0f0f0",
             borderRadius: 8,
         boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
             padding: 12,
@@ -572,39 +572,51 @@ export default function Home() {
               {`At a banquet honoring the contestants, the host rose amid thunderous applause to toast not only Carconade but also the invention of the hour: "To the velocipede, gentlemen, that ingenious and charming machine, by now a faithful friend and inseparable companion to the solitary and weary traveler. To that useful invention, bequeathed by science to a stunned and grateful world. Yes, gentlemen, let us drink to this carriage of the future. To its perfection, to its success, and to its long and useful existence."`}
               <div style={{ marginTop: 6, fontSize: 15, fontStyle: "normal" }}>— Bicycle: The History</div>
             </div>
-              <div
+            <div
               style={{
                 width: 350,
-                border: "6px solid transparent",
-                borderRadius: 8,
-                borderImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%) 1",
-                backgroundColor: "rgba(255,255,255,0.25)",
+                backgroundImage: "none",
+                backgroundColor: "rgba(255,255,255,0.4)",
                 backdropFilter: "blur(10px)",
                 WebkitBackdropFilter: "blur(10px)",
-                  color: "#000000",
+                border: "none",
+                borderRadius: 8,
+                boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
                 padding: 12,
                 boxSizing: "border-box",
-                boxShadow: "none",
+                color: "#000",
               }}
             >
-              <div style={{ marginBottom: 8 }}>An ongoing series of campus curiosities:</div>
-              <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.5 }}>
-                <li>
-                  Stanford Lab Regsitry (
-                  <a href="https://stanfordlabregistry.com" target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>
-                    stanfordlabregistry.com
-                  </a>
-                  )
-                </li>
-                <li>
-                  SU Buffet Response Team (
-                  <a href="#" style={{ color: "inherit", textDecoration: "underline" }}>
-                    whatsapp link
-                  </a>
-                  )
-                </li>
-                <li>Stanford Free Bike Registry</li>
-              </ul>
+              <div
+                style={{
+                  border: "none",
+                borderRadius: 6,
+                  padding: 8,
+                  backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
+                  color: "#ffffff",
+                  textAlign: "left",
+                  marginBottom: 8,
+                }}
+              >
+                An ongoing series of campus curiosities:
+              </div>
+              <div style={{ display: "grid", gap: 8 }}>
+                <div style={{ backgroundColor: "rgba(255,255,255,0.4)", color: "#000", padding: "6px 8px", borderRadius: 6 }}>
+                  <div style={{ marginBottom: 6 }}>
+                    <a href="https://stanfordlabregistry.com" target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
+                      Stanford&nbsp;Lab&nbsp;Registry (stanfordlabregistry.com)
+                    </a>
+                  </div>
+                  <div style={{ marginBottom: 6 }}>
+                    <a href="#" style={{ color: "inherit", textDecoration: "none" }}>
+                      SU&nbsp;Buffet&nbsp;Response&nbsp;Team — whatsapp link
+                    </a>
+                  </div>
+                  <div>
+                    Stanford&nbsp;Free&nbsp;Bike&nbsp;Registry
+                  </div>
+                </div>
+              </div>
             </div>
             <div
               style={{
@@ -634,25 +646,25 @@ export default function Home() {
             thirdContent={
               <div style={{ display: "grid", gap: 8 }}>
                 <div style={{ display: "grid", gridTemplateColumns: "5fr 1fr", gap: 8 }}>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Make &amp; Model</div>
                     <div>Marin Bolinad Ridge 1 29"</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Size</div>
                     <div>L</div>
                   </div>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr 2fr", gap: 8 }}>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Serial #</div>
                     <div>C21067624</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Police ID</div>
                     <div>110591</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Location</div>
                     <div>rains</div>
                   </div>
@@ -780,62 +792,76 @@ export default function Home() {
                 width: 350,
                 backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
                 color: "#ffffff",
-                border: "1px solid rgba(255,255,255,0.9)",
+                border: "1px solid #f0f0f0f0",
                 borderRadius: 6,
                 minHeight: 44,
                 padding: 10,
                 boxSizing: "border-box",
                 boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
-                display: "flex",
+                display: "grid",
+                gridTemplateColumns: "3fr 3fr 1fr",
                 alignItems: "center",
                 textAlign: "left",
+                columnGap: 8,
+                fontWeight: 600,
               }}
             >
-              Name — fav bike — # of bookings
-          </div>
+              <span>Name</span>
+              <span>fav bike</span>
+              <span>bookings</span>
+            </div>
             {bikersLoading ? (
               <div style={{ width: 350, color: "#000" }}>Loading…</div>
             ) : bikers.length === 0 ? (
               <div style={{ width: 350, color: "#000" }}>No bikers yet.</div>
             ) : (
-              bikers.map((b, idx) => (
-                <div
-                  key={b.email + idx}
-                  style={{
-                    width: 350,
-                    border: "1px solid rgba(255,255,255,0.9)",
-                    borderRadius: 8,
-                    backgroundImage: "none",
-                    backgroundColor: "rgba(255,255,255,0.25)",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)",
-                    padding: 6,
-                    boxSizing: "border-box",
-                    color: "#000",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: 6,
-                    boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
-                  }}
-                >
-                  <span
+              <div
+                style={{
+                  width: 350,
+                  border: "1px solid #f0f0f0f0",
+                  borderRadius: 8,
+                  backgroundImage: "none",
+                  backgroundColor: "rgba(255,255,255,0.25)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                  boxSizing: "border-box",
+                  boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
+                  overflow: "hidden",
+                }}
+              >
+                {bikers.map((b, idx) => (
+                  <div
+                    key={b.email + idx}
                     style={{
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                      backgroundImage: "linear-gradient(75deg, #172554 0%, #435078 100%)",
-                      color: "#ffffff",
-                      borderRadius: 6,
-                      padding: "4px 8px",
-                      lineHeight: 1,
+                      display: "grid",
+                      gridTemplateColumns: "3fr 3fr 1fr",
+                      alignItems: "center",
+                      gap: 8,
+                      padding: "8px 10px",
+                      color: "#000",
+                      textAlign: "left",
+                      borderTop: idx ? "1px solid rgba(0,0,0,0.12)" : "none",
                     }}
                   >
-                    {b.email}
-                  </span>
-                  <span>{b.favourite_bike}</span>
-                  <span>#{b.booking_count}</span>
-      </div>
-              ))
+                    <span
+                      style={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        backgroundImage: "linear-gradient(75deg, #172554 0%, #435078 100%)",
+                        color: "#ffffff",
+                        borderRadius: 6,
+                        padding: "4px 8px",
+                        lineHeight: 1,
+                      }}
+                    >
+                      {b.email}
+                    </span>
+                    <span>{b.favourite_bike}</span>
+                    <span>{b.booking_count}</span>
+                  </div>
+                ))}
+              </div>
             )}
           </section>
         ) : null}
