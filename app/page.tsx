@@ -169,7 +169,7 @@ function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook
         backgroundColor: "rgba(255,255,255,0.25)",
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
-        border: "none",
+            border: "none",
             borderRadius: 8,
         boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
             padding: 12,
@@ -608,21 +608,15 @@ export default function Home() {
             </div>
             <div
               style={{
-                width: 350,
-                minHeight: 44,
                 border: "none",
                 borderRadius: 8,
-                backgroundImage: "none",
-                backgroundColor: "transparent",
-                padding: 12,
+                backgroundColor: "#e6e6e6",
+                padding: "6px 10px",
                 boxSizing: "border-box",
                 color: "#000000",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                fontSize: 14,
+                justifySelf: "center",
                 textAlign: "center",
-                boxShadow: "none",
-                fontSize: 15,
               }}
             >
               Ver Natus
@@ -639,16 +633,16 @@ export default function Home() {
             imageUrl="/images/bluemountainbike.jpg"
             thirdContent={
               <div style={{ display: "grid", gap: 8 }}>
-                <div style={{ backgroundColor: "rgba(255,255,255,0.25)", borderRadius: 6, padding: "6px 8px" }}>
+               <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
                   <div style={{ fontSize: 11, opacity: 0.7 }}>Make & Model</div>
                   <div>Marin Bolinad Ridge 1 L 29"</div>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.25)", borderRadius: 6, padding: "6px 8px" }}>
+                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Serial #</div>
                     <div>C21067624</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.25)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.5)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Police ID</div>
                     <div>110591</div>
                   </div>
