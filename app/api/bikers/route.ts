@@ -1,34 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseServer } from "../../../lib/supabaseServer";
+
 export const runtime = "nodejs";
 
-
+// GET /api/bikers?limit=20&month=2025-10-01
+// Calls Postgres function public.get_top_bikers to return masked emails
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const limit = Math.max(1, Math.min(200, Number(searchParams.get("limit")) || 50));
-  const year = searchParams.get("year");
-  const month = searchParams.get("month"); // 1-12
+  const limitParam = Number(searchParams.get("limit"));
+  const monthParam = searchParams.get("month"); // e.g., YYYY-MM-01
 
-  let p_month: string | null = null;
-  if (year && month) {
-    const y = Number(year);
-    const m = Number(month);
-    if (Number.isFinite(y) && Number.isFinite(m) && m >= 1 && m <= 12) {
-      p_month = new Date(Date.UTC(y, m - 1, 1)).toISOString().slice(0, 10);
-    }
-  }
+  const p_limit = Number.isFinite(limitParam) && limitParam > 0 ? Math.min(limitParam, 200) : undefined;
+  const p_month = monthParam && /\d{4}-\d{2}-\d{2}/.test(monthParam) ? monthParam : undefined;
 
-  // Prefer calling the SQL function if present
   const { data, error } = await supabaseServer.rpc("get_top_bikers", {
-    p_limit: limit,
-    p_month,
+    ...(p_limit ? { p_limit } : {}),
+    ...(p_month ? { p_month } : {}),
   });
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ topBikers: data || [] });
+  // Expect rows: { email, favourite_bike, booking_count }
+  const topBikers = Array.isArray(data) ? data : [];
+  return NextResponse.json({ topBikers });
 }
 
 

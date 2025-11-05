@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { Metadata } from "next";
 import StarBG from "./StarBG";
 import localFont from "next/font/local";
 
@@ -161,5 +162,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Stanford Bike Registry",
+};
 
 

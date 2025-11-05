@@ -272,11 +272,14 @@ function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook
 export default function Home() {
   const [expandedOne, setExpandedOne] = useState(false);
   const [expandedTwo, setExpandedTwo] = useState(false);
+  const [expandedThree, setExpandedThree] = useState(false);
   const [selectedDateOne, setSelectedDateOne] = useState<string | null>(null);
   const [selectedDateTwo, setSelectedDateTwo] = useState<string | null>(null);
+  const [selectedDateThree, setSelectedDateThree] = useState<string | null>(null);
   const [showAbout, setShowAbout] = useState(false);
   const [statusOne, setStatusOne] = useState<null | { type: "error" | "success"; message: string }>(null);
   const [statusTwo, setStatusTwo] = useState<null | { type: "error" | "success"; message: string }>(null);
+  const [statusThree, setStatusThree] = useState<null | { type: "error" | "success"; message: string }>(null);
   const [showBikes, setShowBikes] = useState(false);
   const [showBikers, setShowBikers] = useState(false);
   const [bikers, setBikers] = useState<Array<{ email: string; favourite_bike: string; booking_count: number }>>([]);
@@ -335,7 +338,11 @@ export default function Home() {
                 boxSizing: "border-box",
               }}
             >
-              <div style={{ fontSize: 36, letterSpacing: 0.2 }}>Stanford Free Bike Registry</div>
+              <div style={{ fontSize: 36, letterSpacing: 0.2 }}>
+                Stanford Bike
+                <br />
+                Registry
+              </div>
             </div>
             <div
               style={{
@@ -358,9 +365,9 @@ export default function Home() {
                   setShowBikes((v) => !v);
                   setShowAbout(false);
                   setShowBikers(false);
-                  setExpandedOne(false); setExpandedTwo(false);
-                  setSelectedDateOne(null); setSelectedDateTwo(null);
-                  setStatusOne(null); setStatusTwo(null);
+                  setExpandedOne(false); setExpandedTwo(false); setExpandedThree(false);
+                  setSelectedDateOne(null); setSelectedDateTwo(null); setSelectedDateThree(null);
+                  setStatusOne(null); setStatusTwo(null); setStatusThree(null);
                 }}
                 style={{
                   appearance: "none",
@@ -382,9 +389,9 @@ export default function Home() {
                   setShowBikers(next);
                   setShowBikes(false);
                   setShowAbout(false);
-                  setExpandedOne(false); setExpandedTwo(false);
-                  setSelectedDateOne(null); setSelectedDateTwo(null);
-                  setStatusOne(null); setStatusTwo(null);
+                  setExpandedOne(false); setExpandedTwo(false); setExpandedThree(false);
+                  setSelectedDateOne(null); setSelectedDateTwo(null); setSelectedDateThree(null);
+                  setStatusOne(null); setStatusTwo(null); setStatusThree(null);
                   if (next) {
                     if (bikers.length === 0) {
                       try {
@@ -423,9 +430,9 @@ export default function Home() {
                   setShowAbout((v) => !v);
                   setShowBikes(false);
                   setShowBikers(false);
-                  setExpandedOne(false); setExpandedTwo(false);
-                  setSelectedDateOne(null); setSelectedDateTwo(null);
-                  setStatusOne(null); setStatusTwo(null);
+                  setExpandedOne(false); setExpandedTwo(false); setExpandedThree(false);
+                  setSelectedDateOne(null); setSelectedDateTwo(null); setSelectedDateThree(null);
+                  setStatusOne(null); setStatusTwo(null); setStatusThree(null);
                 }}
                 style={{
                   appearance: "none",
@@ -768,6 +775,138 @@ export default function Home() {
                   </div>
                 ) : null}
           </div>
+            </section>
+          ) : null}
+          {/* Card Three */}
+          <Card
+            title="Grey City Bike"
+            onBook={() => setExpandedThree((v) => !v)}
+            imageUrl="/images/greycitybike.jpg"
+            thirdContent={
+              <div style={{ display: "grid", gap: 8 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "5fr 1fr", gap: 8 }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Make &amp; Model</div>
+                    <div>Jamis Coda Comp</div>
+                  </div>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Size</div>
+                    <div>S</div>
+                  </div>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr 2fr", gap: 8 }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Serial #</div>
+                    <div style={{ color: "#000" }}>—</div>
+                  </div>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Police ID</div>
+                    <div style={{ color: "#000" }}>—</div>
+                  </div>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Location</div>
+                    <div>rains</div>
+                  </div>
+                </div>
+              </div>
+            }
+          />
+          {expandedThree ? (
+            <section
+              aria-label="booking panel"
+              style={{
+                width: 350,
+                minHeight: 120,
+                backgroundImage:
+                  "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
+                border: "none",
+                borderRadius: 8,
+                boxShadow: "0 6px 14px rgba(0,0,0,0.18), 0 2px 4px rgba(0,0,0,0.12)",
+                padding: 12,
+                boxSizing: "border-box",
+                color: "#ffffff",
+              }}
+            >
+              <div style={{ display: "grid", gap: 12 }}>
+                <Calendar
+                  bike="bike-three"
+                  onSelectDate={(d) => setSelectedDateThree(d.toISOString().slice(0, 10))}
+                  onMonthChange={() => setSelectedDateThree(null)}
+                />
+                {selectedDateThree ? (
+                  <div style={{ display: "grid", gap: 8 }}>
+                    <label htmlFor={`email-three`} style={{ opacity: 0.95 }}>
+                      Enter your email for {selectedDateThree}
+                    </label>
+                    <input
+                      id={`email-three`}
+                      type="email"
+                      placeholder="you@example.com"
+                      style={{
+                        appearance: "none",
+                        width: "100%",
+                        boxSizing: "border-box",
+                        borderRadius: 6,
+                        border: "1px solid rgba(255,255,255,0.85)",
+                        padding: "8px 10px",
+                        backgroundColor: "rgba(255,255,255,0.15)",
+                        color: "#ffffff",
+                        outline: "none",
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        setStatusThree(null);
+                        const email = (document.getElementById("email-three") as HTMLInputElement)?.value || "";
+                        if (!/@(?:[a-z0-9-]+\.)*stanford\.edu$/i.test(email)) {
+                          setStatusThree({ type: "error", message: "Please use a stanford.edu email" });
+                          return;
+                        }
+                        try {
+                          const res = await fetch("/api/book", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ bike: "bike-three", email, day: selectedDateThree }),
+                          });
+                          const json = await res.json().catch(() => ({}));
+                          if (!res.ok) {
+                            setStatusThree({ type: "error", message: (json as any)?.error || "Booking failed" });
+                          } else {
+                            setStatusThree({ type: "success", message: "Booking successful! Check your email for details on your bike" });
+                          }
+                        } catch {
+                          setStatusThree({ type: "error", message: "Network error. Please try again." });
+                        }
+                      }}
+                      style={{
+                        appearance: "none",
+                        border: "none",
+                        backgroundColor: "#5f6a8e",
+                        color: "#ffffff",
+                        borderRadius: 6,
+                        padding: "8px 12px",
+                        cursor: "pointer",
+                        fontFamily: "inherit",
+                        marginTop: 6,
+                      }}
+                    >
+                      Confirm booking
+                    </button>
+                    {statusThree ? (
+                      <div
+                        style={{
+                          marginTop: 8,
+                          color: statusThree.type === "error" ? "#ef4444" : "#10b981",
+                          fontSize: 13,
+                        }}
+                      >
+                        {statusThree.message}
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
+              </div>
             </section>
           ) : null}
         </div>
