@@ -926,29 +926,6 @@ export default function Home() {
 
         {showBikers ? (
           <section aria-label="bikers panel" style={{ display: "grid", gap: 8 }}>
-            <div
-              style={{
-                width: 350,
-                backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
-                color: "#ffffff",
-                border: "1px solid #f0f0f0f0",
-                borderRadius: 6,
-                minHeight: 44,
-                padding: 10,
-                boxSizing: "border-box",
-                boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
-                display: "grid",
-                gridTemplateColumns: "3fr 3fr 1fr",
-                alignItems: "center",
-                textAlign: "left",
-                columnGap: 8,
-                fontWeight: 600,
-              }}
-            >
-              <span>Name</span>
-              <span>fav bike</span>
-              <span>bookings</span>
-            </div>
             {bikersLoading ? (
               <div style={{ width: 350, color: "#000" }}>Loading…</div>
             ) : bikers.length === 0 ? (
@@ -968,6 +945,53 @@ export default function Home() {
                   overflow: "hidden",
                 }}
               >
+                <div
+                  style={{
+                    position: "relative",
+                    padding: 10,
+                    borderBottom: "1px solid rgba(0,0,0,0.12)",
+                  }}
+                >
+                  <div
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
+                      pointerEvents: "none",
+                      zIndex: 0,
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "relative",
+                      display: "grid",
+                      gridTemplateColumns: "3fr 3fr 1fr",
+                      alignItems: "center",
+                      textAlign: "left",
+                      columnGap: 8,
+                      fontWeight: 600,
+                      color: "#ffffff",
+                    }}
+                  >
+                    <span
+                      style={{
+                        backgroundColor: "#ffffff",
+                        color: "#000",
+                        borderRadius: 6,
+                        padding: "4px 8px",
+                        lineHeight: 1,
+                        display: "inline-block",
+                        justifySelf: "start",
+                        maxWidth: "100%",
+                      }}
+                    >
+                      Name
+                    </span>
+                    <span>fav bike</span>
+                    <span>bookings</span>
+                  </div>
+                </div>
                 {bikers.map((b, idx) => (
                   <div
                     key={b.email + idx}
@@ -992,6 +1016,9 @@ export default function Home() {
                         borderRadius: 6,
                         padding: "4px 8px",
                         lineHeight: 1,
+                        display: "inline-block",
+                        justifySelf: "start",
+                        maxWidth: "100%",
                       }}
                     >
                       {b.email}
