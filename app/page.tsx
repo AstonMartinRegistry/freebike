@@ -285,6 +285,14 @@ export default function Home() {
   const [bikers, setBikers] = useState<Array<{ email: string; favourite_bike: string; booking_count: number }>>([]);
   const [bikersLoading, setBikersLoading] = useState(false);
 
+  function friendlyBikeName(id: string) {
+    const key = String(id || "").toLowerCase();
+    if (key === "bike-one" || key === "1") return "Beige City Bike";
+    if (key === "bike-two" || key === "2") return "Blue Mountain Bike";
+    if (key === "bike-three" || key === "3") return "Grey City Bike";
+    return id;
+  }
+
   return (
     <div
       style={{
@@ -454,7 +462,39 @@ export default function Home() {
         {showBikes ? (
         <div style={{ display: "grid", gap: 16 }}>
         {/* Card One */}
-          <Card title="BIKE ONE" onBook={() => setExpandedOne((v) => !v)} />
+          <Card
+            title="Beige City Bike"
+            onBook={() => setExpandedOne((v) => !v)}
+            imageUrl="/images/creamcitybike.jpg"
+            thirdContent={
+              <div style={{ display: "grid", gap: 8 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "5fr 1fr", gap: 8 }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Make &amp; Model</div>
+                    <div>Schwinn Gateway 700c/28"</div>
+                  </div>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Size</div>
+                    <div>M</div>
+                  </div>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr 2fr", gap: 8 }}>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Serial #</div>
+                    <div style={{ color: "#000" }}>—</div>
+                  </div>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Police ID</div>
+                    <div style={{ color: "#000" }}>—</div>
+                  </div>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                    <div style={{ fontSize: 11, opacity: 0.7 }}>Location</div>
+                    <div>rains</div>
+                  </div>
+                </div>
+              </div>
+            }
+          />
           {expandedOne ? (
             <section
               aria-label="booking panel"
@@ -966,7 +1006,7 @@ export default function Home() {
                     style={{
                       position: "relative",
                       display: "grid",
-                      gridTemplateColumns: "3fr 3fr 1fr",
+                      gridTemplateColumns: "3fr 3fr 2fr",
                       alignItems: "center",
                       textAlign: "left",
                       columnGap: 8,
@@ -986,10 +1026,36 @@ export default function Home() {
                         maxWidth: "100%",
                       }}
                     >
-                      Name
+                      biker
                     </span>
-                    <span>fav bike</span>
-                    <span>bookings</span>
+                    <span
+                      style={{
+                        backgroundColor: "#ffffff",
+                        color: "#000",
+                        borderRadius: 6,
+                        padding: "4px 8px",
+                        lineHeight: 1,
+                        display: "inline-block",
+                        justifySelf: "start",
+                        maxWidth: "100%",
+                      }}
+                    >
+                      fav bike
+                    </span>
+                    <span
+                      style={{
+                        backgroundColor: "#ffffff",
+                        color: "#000",
+                        borderRadius: 6,
+                        padding: "4px 8px",
+                        lineHeight: 1,
+                        display: "inline-block",
+                        justifySelf: "end",
+                        maxWidth: "100%",
+                      }}
+                    >
+                      bookings
+                    </span>
                   </div>
                 </div>
                 {bikers.map((b, idx) => (
@@ -997,7 +1063,7 @@ export default function Home() {
                     key={b.email + idx}
                     style={{
                       display: "grid",
-                      gridTemplateColumns: "3fr 3fr 1fr",
+                      gridTemplateColumns: "3fr 3fr 2fr",
                       alignItems: "center",
                       gap: 8,
                       padding: "8px 10px",
@@ -1023,8 +1089,8 @@ export default function Home() {
                     >
                       {b.email}
                     </span>
-                    <span>{b.favourite_bike}</span>
-                    <span>{b.booking_count}</span>
+                    <span>{friendlyBikeName(b.favourite_bike)}</span>
+                    <span style={{ justifySelf: "end", textAlign: "right" }}>{b.booking_count}</span>
                   </div>
                 ))}
               </div>
