@@ -155,7 +155,30 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             opacity: 0.28;
             mix-blend-mode: screen;
           }
-          
+
+          .booking-email-input::placeholder {
+            color: rgba(255,255,255,0.32);
+          }
+
+          .arrow-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            image-rendering: pixelated;
+            background-repeat: no-repeat;
+            background-size: 10px 10px;
+            background-position: center;
+            transition: background-image 0.2s ease;
+          }
+
+          .arrow-dot.down {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><path d='M1 3h8L5 7z' fill='%23ffffff'/></svg>");
+          }
+
+          .arrow-dot.up {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><path d='M5 3l4 4H1z' fill='%23ffffff'/></svg>");
+          }
+
         `}</style>
         {children}
       </body>

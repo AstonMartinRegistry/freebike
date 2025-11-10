@@ -90,13 +90,14 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
           disabled={atMin}
       style={{
             appearance: "none",
-            border: "1px solid rgba(255,255,255,0.8)",
-            backgroundColor: "rgba(255,255,255,0.08)",
+            border: "none",
+            backgroundColor: "rgba(255,255,255,0.2)",
             color: "#ffffff",
             borderRadius: 6,
             padding: "4px 8px",
             cursor: atMin ? "not-allowed" : "pointer",
             opacity: atMin ? 0.5 : 1,
+            fontFamily: "inherit",
           }}
         >
           ‹
@@ -109,13 +110,14 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
           disabled={atMax}
           style={{
             appearance: "none",
-            border: "1px solid rgba(255,255,255,0.8)",
-            backgroundColor: "rgba(255,255,255,0.08)",
+            border: "none",
+            backgroundColor: "rgba(255,255,255,0.2)",
             color: "#ffffff",
             borderRadius: 6,
             padding: "4px 8px",
             cursor: atMax ? "not-allowed" : "pointer",
             opacity: atMax ? 0.5 : 1,
+            fontFamily: "inherit",
           }}
         >
           ›
@@ -144,10 +146,11 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
               style={{
                 height: 34,
                 borderRadius: 6,
-                border: isPast || !isAvailable ? "1px solid rgba(255,255,255,0.35)" : "1px solid rgba(255,255,255,0.75)",
-                backgroundColor: isPast || !isAvailable ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.12)",
+                border: "none",
+                backgroundColor: isPast || !isAvailable ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.2)",
                 color: isPast || !isAvailable ? "rgba(255,255,255,0.45)" : "#ffffff",
                 cursor: isPast || !isAvailable ? "not-allowed" : "pointer",
+                fontFamily: "inherit",
               }}
             >
               {day}
@@ -159,7 +162,19 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
   );
 }
 
-function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook: () => void; imageUrl?: string; thirdContent?: ReactNode }) {
+function Card({
+  title,
+  onBook,
+  imageUrl,
+  thirdContent,
+  isExpanded,
+}: {
+  title: string;
+  onBook: () => void;
+  imageUrl?: string;
+  thirdContent?: ReactNode;
+  isExpanded?: boolean;
+}) {
   return (
     <article
           style={{
@@ -259,9 +274,16 @@ function Card({ title, onBook, imageUrl, thirdContent }: { title: string; onBook
               fontSize: 16,
               lineHeight: 1,
               fontWeight: 400,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
             }}
           >
-            Book
+            <span>Book</span>
+            <span
+              aria-hidden
+              className={`arrow-dot ${isExpanded ? "up" : "down"}`}
+            />
           </button>
         </div>
       </div>
@@ -285,12 +307,24 @@ export default function Home() {
   const [bikers, setBikers] = useState<Array<{ email: string; favourite_bike: string; booking_count: number }>>([]);
   const [bikersLoading, setBikersLoading] = useState(false);
 
+  const resetBookingState = () => {
+    setExpandedOne(false);
+    setExpandedTwo(false);
+    setExpandedThree(false);
+    setSelectedDateOne(null);
+    setSelectedDateTwo(null);
+    setSelectedDateThree(null);
+    setStatusOne(null);
+    setStatusTwo(null);
+    setStatusThree(null);
+  };
+
   function friendlyBikeName(id: string) {
     const key = String(id || "").toLowerCase();
-    if (key === "bike-one" || key === "1") return "Beige City Bike";
-    if (key === "bike-two" || key === "2") return "Blue Mountain Bike";
-    if (key === "bike-three" || key === "3") return "Grey City Bike";
-    return id;
+    if (key === "bike-one" || key === "1") return "beige city";
+    if (key === "bike-two" || key === "2") return "blue mountain";
+    if (key === "bike-three" || key === "3") return "grey city";
+    return key;
   }
 
   return (
@@ -370,12 +404,11 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => {
-                  setShowBikes((v) => !v);
+                  const next = !showBikes;
+                  setShowBikes(next);
                   setShowAbout(false);
                   setShowBikers(false);
-                  setExpandedOne(false); setExpandedTwo(false); setExpandedThree(false);
-                  setSelectedDateOne(null); setSelectedDateTwo(null); setSelectedDateThree(null);
-                  setStatusOne(null); setStatusTwo(null); setStatusThree(null);
+                  resetBookingState();
                 }}
                 style={{
                   appearance: "none",
@@ -397,9 +430,7 @@ export default function Home() {
                   setShowBikers(next);
                   setShowBikes(false);
                   setShowAbout(false);
-                  setExpandedOne(false); setExpandedTwo(false); setExpandedThree(false);
-                  setSelectedDateOne(null); setSelectedDateTwo(null); setSelectedDateThree(null);
-                  setStatusOne(null); setStatusTwo(null); setStatusThree(null);
+                  resetBookingState();
                   if (next) {
                     if (bikers.length === 0) {
                       try {
@@ -438,9 +469,7 @@ export default function Home() {
                   setShowAbout((v) => !v);
                   setShowBikes(false);
                   setShowBikers(false);
-                  setExpandedOne(false); setExpandedTwo(false); setExpandedThree(false);
-                  setSelectedDateOne(null); setSelectedDateTwo(null); setSelectedDateThree(null);
-                  setStatusOne(null); setStatusTwo(null); setStatusThree(null);
+                  resetBookingState();
                 }}
                 style={{
                   appearance: "none",
@@ -466,6 +495,7 @@ export default function Home() {
             title="Beige City Bike"
             onBook={() => setExpandedOne((v) => !v)}
             imageUrl="/images/creamcitybike.jpg"
+            isExpanded={expandedOne}
             thirdContent={
               <div style={{ display: "grid", gap: 8 }}>
                 <div style={{ display: "grid", gridTemplateColumns: "5fr 1fr", gap: 8 }}>
@@ -505,7 +535,7 @@ export default function Home() {
                   "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
                 border: "none",
                 borderRadius: 8,
-                boxShadow: "0 6px 14px rgba(0,0,0,0.18), 0 2px 4px rgba(0,0,0,0.12)",
+                boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
                 padding: 12,
                 boxSizing: "border-box",
                 color: "#ffffff",
@@ -523,9 +553,10 @@ export default function Home() {
                       Enter your email for {selectedDateOne}
                     </label>
                     <input
+                      className="booking-email-input"
                       id={`email-one`}
                       type="email"
-                      placeholder="you@example.com"
+                      placeholder="you@stanford.edu"
                       style={{
                         appearance: "none",
                         width: "100%",
@@ -536,6 +567,7 @@ export default function Home() {
                         backgroundColor: "rgba(255,255,255,0.15)",
                         color: "#ffffff",
                         outline: "none",
+                        fontFamily: "inherit",
                       }}
                     />
                     <button
@@ -623,10 +655,9 @@ export default function Home() {
               style={{
                 width: 350,
                 backgroundImage: "none",
-                backgroundColor: "rgba(255,255,255,0.4)",
-                backdropFilter: "blur(10px)",
-                WebkitBackdropFilter: "blur(10px)",
-                border: "none",
+                backgroundColor: "rgba(255,255,255,0.25)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
                 borderRadius: 8,
                 boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
                 padding: 12,
@@ -645,23 +676,35 @@ export default function Home() {
                   marginBottom: 8,
                 }}
               >
-                An ongoing series of campus curiosities:
+                An ongoing series of campus curiosities
               </div>
               <div style={{ display: "grid", gap: 8 }}>
-                <div style={{ backgroundColor: "rgba(255,255,255,0.4)", color: "#000", padding: "6px 8px", borderRadius: 6 }}>
-                  <div style={{ marginBottom: 6 }}>
-                    <a href="https://stanfordlabregistry.com" target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>
-                      Stanford&nbsp;Lab&nbsp;Registry (stanfordlabregistry.com)
-                    </a>
-                  </div>
-                  <div style={{ marginBottom: 6 }}>
-                    <a href="#" style={{ color: "inherit", textDecoration: "none" }}>
-                      SU&nbsp;Buffet&nbsp;Response&nbsp;Team — whatsapp link
-                    </a>
-                  </div>
-                  <div>
-                    Stanford&nbsp;Free&nbsp;Bike&nbsp;Registry
-                  </div>
+                <div style={{ marginLeft: 10, color: "#000", fontWeight: 400 }}>
+                  <a
+                    href="https://stanfordlabregistry.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      color: "inherit",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    Stanford Lab Registry
+                  </a>
+                </div>
+                <div style={{ marginLeft: 10, color: "#000", fontWeight: 400 }}>
+                  <a
+                    href="#"
+                    style={{
+                      color: "inherit",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    SU&nbsp;Buffet&nbsp;Response&nbsp;Team — whatsapp link
+                  </a>
+                </div>
+                <div style={{ marginLeft: 10, color: "#000", fontWeight: 400 }}>
+                  Stanford&nbsp;Free&nbsp;Bike&nbsp;Registry
                 </div>
               </div>
             </div>
@@ -690,6 +733,7 @@ export default function Home() {
             title="Blue Mountain Bike"
             onBook={() => setExpandedTwo((v) => !v)}
             imageUrl="/images/bluemountainbike.jpg"
+            isExpanded={expandedTwo}
             thirdContent={
               <div style={{ display: "grid", gap: 8 }}>
                 <div style={{ display: "grid", gridTemplateColumns: "5fr 1fr", gap: 8 }}>
@@ -729,7 +773,7 @@ export default function Home() {
                   "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
                 border: "none",
                 borderRadius: 8,
-                boxShadow: "0 6px 14px rgba(0,0,0,0.18), 0 2px 4px rgba(0,0,0,0.12)",
+                boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
                 padding: 12,
                 boxSizing: "border-box",
                 color: "#ffffff",
@@ -747,9 +791,10 @@ export default function Home() {
                       Enter your email for {selectedDateTwo}
                     </label>
                     <input
+                      className="booking-email-input"
                       id={`email-two`}
                       type="email"
-                      placeholder="you@example.com"
+                      placeholder="you@stanford.edu"
                       style={{
                         appearance: "none",
                         width: "100%",
@@ -760,6 +805,7 @@ export default function Home() {
                         backgroundColor: "rgba(255,255,255,0.15)",
                         color: "#ffffff",
                         outline: "none",
+                        fontFamily: "inherit",
                       }}
                     />
                     <button
@@ -822,6 +868,7 @@ export default function Home() {
             title="Grey City Bike"
             onBook={() => setExpandedThree((v) => !v)}
             imageUrl="/images/greycitybike.jpg"
+            isExpanded={expandedThree}
             thirdContent={
               <div style={{ display: "grid", gap: 8 }}>
                 <div style={{ display: "grid", gridTemplateColumns: "5fr 1fr", gap: 8 }}>
@@ -861,7 +908,7 @@ export default function Home() {
                   "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
                 border: "none",
                 borderRadius: 8,
-                boxShadow: "0 6px 14px rgba(0,0,0,0.18), 0 2px 4px rgba(0,0,0,0.12)",
+                boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
                 padding: 12,
                 boxSizing: "border-box",
                 color: "#ffffff",
@@ -879,9 +926,10 @@ export default function Home() {
                       Enter your email for {selectedDateThree}
                     </label>
                     <input
+                      className="booking-email-input"
                       id={`email-three`}
                       type="email"
-                      placeholder="you@example.com"
+                      placeholder="you@stanford.edu"
                       style={{
                         appearance: "none",
                         width: "100%",
@@ -892,6 +940,7 @@ export default function Home() {
                         backgroundColor: "rgba(255,255,255,0.15)",
                         color: "#ffffff",
                         outline: "none",
+                        fontFamily: "inherit",
                       }}
                     />
                     <button
@@ -989,7 +1038,7 @@ export default function Home() {
                   style={{
                     position: "relative",
                     padding: 10,
-                    borderBottom: "1px solid rgba(0,0,0,0.12)",
+                    borderBottom: "1px solid #f0f0f0f0",
                   }}
                 >
                   <div
@@ -1069,7 +1118,7 @@ export default function Home() {
                       padding: "8px 10px",
                       color: "#000",
                       textAlign: "left",
-                      borderTop: idx ? "1px solid rgba(0,0,0,0.12)" : "none",
+                      borderTop: idx ? "1px solid #f0f0f0f0" : "none",
                     }}
                   >
                     <span
