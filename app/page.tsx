@@ -91,12 +91,13 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
       style={{
             appearance: "none",
             border: "none",
-            backgroundColor: "rgba(255,255,255,0.2)",
-            color: "#ffffff",
+            backgroundImage: atMin ? "none" : "linear-gradient(75deg, #172554 0%, #435078 100%)",
+            backgroundColor: atMin ? "rgba(0,0,0,0.06)" : "transparent",
+            color: atMin ? "rgba(0,0,0,0.45)" : "#ffffff",
             borderRadius: 6,
             padding: "4px 8px",
             cursor: atMin ? "not-allowed" : "pointer",
-            opacity: atMin ? 0.5 : 1,
+            opacity: 1,
             fontFamily: "inherit",
           }}
         >
@@ -111,12 +112,13 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
           style={{
             appearance: "none",
             border: "none",
-            backgroundColor: "rgba(255,255,255,0.2)",
-            color: "#ffffff",
+            backgroundImage: atMax ? "none" : "linear-gradient(75deg, #172554 0%, #435078 100%)",
+            backgroundColor: atMax ? "rgba(0,0,0,0.06)" : "transparent",
+            color: atMax ? "rgba(0,0,0,0.45)" : "#ffffff",
             borderRadius: 6,
             padding: "4px 8px",
             cursor: atMax ? "not-allowed" : "pointer",
-            opacity: atMax ? 0.5 : 1,
+            opacity: 1,
             fontFamily: "inherit",
           }}
         >
@@ -125,7 +127,7 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 6 }}>
         {weekdayLabels.map((w) => (
-          <div key={w} style={{ textAlign: "center", opacity: 0.9, fontSize: 12 }}>{w}</div>
+          <div key={w} style={{ textAlign: "center", opacity: 0.9, fontSize: 12, color: "#000" }}>{w}</div>
         ))}
         {/* leading blanks */}
         {Array.from({ length: firstWeekday }).map((_, i) => (
@@ -147,10 +149,14 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
                 height: 34,
                 borderRadius: 6,
                 border: "none",
-                backgroundColor: isPast || !isAvailable ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.2)",
-                color: isPast || !isAvailable ? "rgba(255,255,255,0.45)" : "#ffffff",
+                backgroundImage: isPast || !isAvailable
+                  ? "none"
+                  : "linear-gradient(75deg, #172554 0%, #435078 100%)",
+                backgroundColor: isPast || !isAvailable ? "rgba(0,0,0,0.06)" : "transparent",
+                color: isPast || !isAvailable ? "rgba(0,0,0,0.45)" : "#ffffff",
                 cursor: isPast || !isAvailable ? "not-allowed" : "pointer",
                 fontFamily: "inherit",
+                opacity: 1,
               }}
             >
               {day}
@@ -499,25 +505,25 @@ export default function Home() {
             thirdContent={
               <div style={{ display: "grid", gap: 8 }}>
                 <div style={{ display: "grid", gridTemplateColumns: "5fr 1fr", gap: 8 }}>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Make &amp; Model</div>
                     <div>Schwinn Gateway 700c/28"</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Size</div>
                     <div>M</div>
                   </div>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr 2fr", gap: 8 }}>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Serial #</div>
-                    <div style={{ color: "#000" }}>—</div>
+                    <div style={{ color: "#000" }}>SNFSD24E47497</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Police ID</div>
-                    <div style={{ color: "#000" }}>—</div>
+                    <div style={{ color: "#000" }}>110419</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Location</div>
                     <div>rains</div>
                   </div>
@@ -531,14 +537,16 @@ export default function Home() {
               style={{
                 width: 350,
                 minHeight: 120,
-                backgroundImage:
-                  "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
-                border: "none",
+                backgroundImage: "none",
+                backgroundColor: "rgba(255,255,255,0.25)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                border: "1px solid #f0f0f0f0",
                 borderRadius: 8,
                 boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
                 padding: 12,
                 boxSizing: "border-box",
-                color: "#ffffff",
+                color: "#000000",
               }}
             >
               <div style={{ display: "grid", gap: 12 }}>
@@ -552,63 +560,65 @@ export default function Home() {
                     <label htmlFor={`email-one`} style={{ opacity: 0.95 }}>
                       Enter your email for {selectedDateOne}
                     </label>
-                    <input
-                      className="booking-email-input"
-                      id={`email-one`}
-                      type="email"
-                      placeholder="you@stanford.edu"
-                      style={{
-                        appearance: "none",
-                        width: "100%",
-                        boxSizing: "border-box",
-                        borderRadius: 6,
-                        border: "1px solid rgba(255,255,255,0.85)",
-                        padding: "8px 10px",
-                        backgroundColor: "rgba(255,255,255,0.15)",
-                        color: "#ffffff",
-                        outline: "none",
-                        fontFamily: "inherit",
-                      }}
-                    />
-                    <button
-                      type="button"
-                      onClick={async () => {
-                        setStatusOne(null);
-                        const email = (document.getElementById("email-one") as HTMLInputElement)?.value || "";
-                        if (!/@(?:[a-z0-9-]+\.)*stanford\.edu$/i.test(email)) {
-                          setStatusOne({ type: "error", message: "Please use a stanford.edu email" });
-                          return;
-                        }
-                        try {
-                          const res = await fetch("/api/book", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ bike: "bike-one", email, day: selectedDateOne }),
-                          });
-                          const json = await res.json().catch(() => ({}));
-                          if (!res.ok) {
-                            setStatusOne({ type: "error", message: json?.error || "Booking failed" });
-                          } else {
-                            setStatusOne({ type: "success", message: "Booking successful! Check your email for details on your bike" });
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 8, alignItems: "center" }}>
+                      <input
+                        className="booking-email-input"
+                        id={`email-one`}
+                        type="email"
+                        placeholder="you@stanford.edu"
+                        style={{
+                          appearance: "none",
+                          width: "100%",
+                          boxSizing: "border-box",
+                          borderRadius: 6,
+                          border: "none",
+                          padding: "8px 10px",
+                          backgroundColor: "rgba(0,0,0,0.06)",
+                          color: "rgba(0,0,0,0.45)",
+                          outline: "none",
+                          fontFamily: "inherit",
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          setStatusOne(null);
+                          const email = (document.getElementById("email-one") as HTMLInputElement)?.value || "";
+                          if (!/@(?:[a-z0-9-]+\.)*stanford\.edu$/i.test(email)) {
+                            setStatusOne({ type: "error", message: "Please use a stanford.edu email" });
+                            return;
                           }
-                        } catch {
-                          setStatusOne({ type: "error", message: "Network error. Please try again." });
-                        }
-                      }}
-                      style={{
-                        appearance: "none",
-                        border: "none",
-                        backgroundColor: "#5f6a8e",
-                        color: "#ffffff",
-                        borderRadius: 6,
-                        padding: "8px 12px",
-                        cursor: "pointer",
-                        fontFamily: "inherit",
-                        marginTop: 6,
-                      }}
-                    >
-                      Confirm booking
-                    </button>
+                          try {
+                            const res = await fetch("/api/book", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ bike: "bike-one", email, day: selectedDateOne }),
+                            });
+                            const json = await res.json().catch(() => ({}));
+                            if (!res.ok) {
+                              setStatusOne({ type: "error", message: json?.error || "Booking failed" });
+                            } else {
+                              setStatusOne({ type: "success", message: "Booking successful! Check your email for details on your bike" });
+                            }
+                          } catch {
+                            setStatusOne({ type: "error", message: "Network error. Please try again." });
+                          }
+                        }}
+                        style={{
+                          appearance: "none",
+                          border: "none",
+                          backgroundImage: "linear-gradient(75deg, #172554 0%, #435078 100%)",
+                          color: "#ffffff",
+                          borderRadius: 6,
+                          padding: "8px 12px",
+                          cursor: "pointer",
+                          fontFamily: "inherit",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Confirm
+                      </button>
+                    </div>
                     {statusOne ? (
                       <div
                         style={{
@@ -734,25 +744,25 @@ export default function Home() {
             thirdContent={
               <div style={{ display: "grid", gap: 8 }}>
                 <div style={{ display: "grid", gridTemplateColumns: "5fr 1fr", gap: 8 }}>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Make &amp; Model</div>
                     <div>Marin Bolinad Ridge 1 29"</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Size</div>
                     <div>L</div>
                   </div>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr 2fr", gap: 8 }}>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Serial #</div>
                     <div>C21067624</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Police ID</div>
                     <div>110591</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Location</div>
                     <div>rains</div>
                   </div>
@@ -766,14 +776,16 @@ export default function Home() {
               style={{
                 width: 350,
                 minHeight: 120,
-                backgroundImage:
-                  "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
-                border: "none",
+                backgroundImage: "none",
+                backgroundColor: "rgba(255,255,255,0.25)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                border: "1px solid #f0f0f0f0",
                 borderRadius: 8,
                 boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
                 padding: 12,
                 boxSizing: "border-box",
-                color: "#ffffff",
+                color: "#000000",
               }}
             >
               <div style={{ display: "grid", gap: 12 }}>
@@ -787,63 +799,65 @@ export default function Home() {
                     <label htmlFor={`email-two`} style={{ opacity: 0.95 }}>
                       Enter your email for {selectedDateTwo}
                     </label>
-                    <input
-                      className="booking-email-input"
-                      id={`email-two`}
-                      type="email"
-                      placeholder="you@stanford.edu"
-                      style={{
-                        appearance: "none",
-                        width: "100%",
-                        boxSizing: "border-box",
-                        borderRadius: 6,
-                        border: "1px solid rgba(255,255,255,0.85)",
-                        padding: "8px 10px",
-                        backgroundColor: "rgba(255,255,255,0.15)",
-                        color: "#ffffff",
-                        outline: "none",
-                        fontFamily: "inherit",
-                      }}
-                    />
-                    <button
-                      type="button"
-                      onClick={async () => {
-                        setStatusTwo(null);
-                        const email = (document.getElementById("email-two") as HTMLInputElement)?.value || "";
-                        if (!/@(?:[a-z0-9-]+\.)*stanford\.edu$/i.test(email)) {
-                          setStatusTwo({ type: "error", message: "Please use a stanford.edu email" });
-                          return;
-                        }
-                        try {
-                          const res = await fetch("/api/book", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ bike: "bike-two", email, day: selectedDateTwo }),
-                          });
-                          const json = await res.json().catch(() => ({}));
-                          if (!res.ok) {
-                            setStatusTwo({ type: "error", message: json?.error || "Booking failed" });
-                          } else {
-                            setStatusTwo({ type: "success", message: "Booking successful! Check your email for details on your bike" });
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 8, alignItems: "center" }}>
+                      <input
+                        className="booking-email-input"
+                        id={`email-two`}
+                        type="email"
+                        placeholder="you@stanford.edu"
+                        style={{
+                          appearance: "none",
+                          width: "100%",
+                          boxSizing: "border-box",
+                          borderRadius: 6,
+                          border: "none",
+                          padding: "8px 10px",
+                          backgroundColor: "rgba(0,0,0,0.06)",
+                          color: "rgba(0,0,0,0.45)",
+                          outline: "none",
+                          fontFamily: "inherit",
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          setStatusTwo(null);
+                          const email = (document.getElementById("email-two") as HTMLInputElement)?.value || "";
+                          if (!/@(?:[a-z0-9-]+\.)*stanford\.edu$/i.test(email)) {
+                            setStatusTwo({ type: "error", message: "Please use a stanford.edu email" });
+                            return;
                           }
-                        } catch {
-                          setStatusTwo({ type: "error", message: "Network error. Please try again." });
-                        }
-                      }}
-                      style={{
-                        appearance: "none",
-                        border: "none",
-                        backgroundColor: "#5f6a8e",
-                        color: "#ffffff",
-                        borderRadius: 6,
-                        padding: "8px 12px",
-                        cursor: "pointer",
-                        fontFamily: "inherit",
-                        marginTop: 6,
-                      }}
-                    >
-                      Confirm booking
-                    </button>
+                          try {
+                            const res = await fetch("/api/book", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ bike: "bike-two", email, day: selectedDateTwo }),
+                            });
+                            const json = await res.json().catch(() => ({}));
+                            if (!res.ok) {
+                              setStatusTwo({ type: "error", message: json?.error || "Booking failed" });
+                            } else {
+                              setStatusTwo({ type: "success", message: "Booking successful! Check your email for details on your bike" });
+                            }
+                          } catch {
+                            setStatusTwo({ type: "error", message: "Network error. Please try again." });
+                          }
+                        }}
+                        style={{
+                          appearance: "none",
+                          border: "none",
+                          backgroundImage: "linear-gradient(75deg, #172554 0%, #435078 100%)",
+                          color: "#ffffff",
+                          borderRadius: 6,
+                          padding: "8px 12px",
+                          cursor: "pointer",
+                          fontFamily: "inherit",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Confirm
+                      </button>
+                    </div>
                     {statusTwo ? (
                       <div
                         style={{
@@ -869,27 +883,27 @@ export default function Home() {
             thirdContent={
               <div style={{ display: "grid", gap: 8 }}>
                 <div style={{ display: "grid", gridTemplateColumns: "5fr 1fr", gap: 8 }}>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Make &amp; Model</div>
                     <div>Jamis Coda Comp</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Size</div>
                     <div>S</div>
                   </div>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr 2fr", gap: 8 }}>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Serial #</div>
-                    <div style={{ color: "#000" }}>—</div>
+                    <div style={{ color: "#000" }}>WLH010545M</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Police ID</div>
                     <div style={{ color: "#000" }}>—</div>
                   </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.4)", borderRadius: 6, padding: "6px 8px" }}>
+                  <div style={{ backgroundColor: "rgba(0,0,0,0.06)", borderRadius: 6, padding: "6px 8px" }}>
                     <div style={{ fontSize: 11, opacity: 0.7 }}>Location</div>
-                    <div>rains</div>
+                    <div>cal train</div>
                   </div>
                 </div>
               </div>
@@ -901,14 +915,16 @@ export default function Home() {
               style={{
                 width: 350,
                 minHeight: 120,
-                backgroundImage:
-                  "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
-                border: "none",
+                backgroundImage: "none",
+                backgroundColor: "rgba(255,255,255,0.25)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                border: "1px solid #f0f0f0f0",
                 borderRadius: 8,
                 boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
                 padding: 12,
                 boxSizing: "border-box",
-                color: "#ffffff",
+                color: "#000000",
               }}
             >
               <div style={{ display: "grid", gap: 12 }}>
@@ -922,63 +938,65 @@ export default function Home() {
                     <label htmlFor={`email-three`} style={{ opacity: 0.95 }}>
                       Enter your email for {selectedDateThree}
                     </label>
-                    <input
-                      className="booking-email-input"
-                      id={`email-three`}
-                      type="email"
-                      placeholder="you@stanford.edu"
-                      style={{
-                        appearance: "none",
-                        width: "100%",
-                        boxSizing: "border-box",
-                        borderRadius: 6,
-                        border: "1px solid rgba(255,255,255,0.85)",
-                        padding: "8px 10px",
-                        backgroundColor: "rgba(255,255,255,0.15)",
-                        color: "#ffffff",
-                        outline: "none",
-                        fontFamily: "inherit",
-                      }}
-                    />
-                    <button
-                      type="button"
-                      onClick={async () => {
-                        setStatusThree(null);
-                        const email = (document.getElementById("email-three") as HTMLInputElement)?.value || "";
-                        if (!/@(?:[a-z0-9-]+\.)*stanford\.edu$/i.test(email)) {
-                          setStatusThree({ type: "error", message: "Please use a stanford.edu email" });
-                          return;
-                        }
-                        try {
-                          const res = await fetch("/api/book", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ bike: "bike-three", email, day: selectedDateThree }),
-                          });
-                          const json = await res.json().catch(() => ({}));
-                          if (!res.ok) {
-                            setStatusThree({ type: "error", message: (json as any)?.error || "Booking failed" });
-                          } else {
-                            setStatusThree({ type: "success", message: "Booking successful! Check your email for details on your bike" });
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 8, alignItems: "center" }}>
+                      <input
+                        className="booking-email-input"
+                        id={`email-three`}
+                        type="email"
+                        placeholder="you@stanford.edu"
+                        style={{
+                          appearance: "none",
+                          width: "100%",
+                          boxSizing: "border-box",
+                          borderRadius: 6,
+                          border: "none",
+                          padding: "8px 10px",
+                          backgroundColor: "rgba(0,0,0,0.06)",
+                          color: "rgba(0,0,0,0.45)",
+                          outline: "none",
+                          fontFamily: "inherit",
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          setStatusThree(null);
+                          const email = (document.getElementById("email-three") as HTMLInputElement)?.value || "";
+                          if (!/@(?:[a-z0-9-]+\.)*stanford\.edu$/i.test(email)) {
+                            setStatusThree({ type: "error", message: "Please use a stanford.edu email" });
+                            return;
                           }
-                        } catch {
-                          setStatusThree({ type: "error", message: "Network error. Please try again." });
-                        }
-                      }}
-                      style={{
-                        appearance: "none",
-                        border: "none",
-                        backgroundColor: "#5f6a8e",
-                        color: "#ffffff",
-                        borderRadius: 6,
-                        padding: "8px 12px",
-                        cursor: "pointer",
-                        fontFamily: "inherit",
-                        marginTop: 6,
-                      }}
-                    >
-                      Confirm booking
-                    </button>
+                          try {
+                            const res = await fetch("/api/book", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({ bike: "bike-three", email, day: selectedDateThree }),
+                            });
+                            const json = await res.json().catch(() => ({}));
+                            if (!res.ok) {
+                              setStatusThree({ type: "error", message: (json as any)?.error || "Booking failed" });
+                            } else {
+                              setStatusThree({ type: "success", message: "Booking successful! Check your email for details on your bike" });
+                            }
+                          } catch {
+                            setStatusThree({ type: "error", message: "Network error. Please try again." });
+                          }
+                        }}
+                        style={{
+                          appearance: "none",
+                          border: "none",
+                          backgroundImage: "linear-gradient(75deg, #172554 0%, #435078 100%)",
+                          color: "#ffffff",
+                          borderRadius: 6,
+                          padding: "8px 12px",
+                          cursor: "pointer",
+                          fontFamily: "inherit",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Confirm
+                      </button>
+                    </div>
                     {statusThree ? (
                       <div
                         style={{
