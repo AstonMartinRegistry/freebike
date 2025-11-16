@@ -1071,7 +1071,149 @@ export default function Home() {
         {showBikers ? (
           <section aria-label="bikers panel" style={{ display: "grid", gap: 8 }}>
             {bikersLoading ? (
-              <div style={{ width: 350, color: "#000" }}>Loading…</div>
+              <div
+                style={{
+                  width: 350,
+                  border: "1px solid #f0f0f0f0",
+                  borderRadius: 8,
+                  backgroundImage: "none",
+                  backgroundColor: "rgba(255,255,255,0.25)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                  boxSizing: "border-box",
+                  boxShadow: "-3px 3px 0 rgba(0,0,0,0.75)",
+                  overflow: "hidden",
+                }}
+              >
+                <style>{`
+                  @keyframes skeletonPulse {
+                    0% { opacity: 0.55; }
+                    50% { opacity: 0.9; }
+                    100% { opacity: 0.55; }
+                  }
+                `}</style>
+                {/* Header area with gradient bg and three white chips */}
+                <div
+                  style={{
+                    position: "relative",
+                    padding: 10,
+                    borderBottom: "1px solid rgba(0,0,0,0.12)",
+                  }}
+                >
+                  <div
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      backgroundImage: "linear-gradient(75deg, #172554 0%, #a2acc3 100%)",
+                      pointerEvents: "none",
+                      zIndex: 0,
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "relative",
+                      display: "grid",
+                      gridTemplateColumns: "3fr 3fr 2fr",
+                      alignItems: "center",
+                      textAlign: "left",
+                      columnGap: 8,
+                    }}
+                  >
+                    <span
+                      style={{
+                        backgroundColor: "rgba(255,255,255,0.90)",
+                        borderRadius: 6,
+                        padding: "4px 8px",
+                        lineHeight: 1,
+                        display: "inline-block",
+                        justifySelf: "start",
+                        maxWidth: "100%",
+                        height: 18,
+                        animation: "skeletonPulse 1200ms ease-in-out infinite",
+                      }}
+                    />
+                    <span
+                      style={{
+                        backgroundColor: "rgba(255,255,255,0.90)",
+                        borderRadius: 6,
+                        padding: "4px 8px",
+                        lineHeight: 1,
+                        display: "inline-block",
+                        justifySelf: "start",
+                        maxWidth: "100%",
+                        height: 18,
+                        animation: "skeletonPulse 1200ms ease-in-out infinite",
+                      }}
+                    />
+                    <span
+                      style={{
+                        backgroundColor: "rgba(255,255,255,0.90)",
+                        borderRadius: 6,
+                        padding: "4px 8px",
+                        lineHeight: 1,
+                        display: "inline-block",
+                        justifySelf: "end",
+                        maxWidth: "100%",
+                        height: 18,
+                        animation: "skeletonPulse 1200ms ease-in-out infinite",
+                      }}
+                    />
+                  </div>
+                </div>
+                {/* Body rows with same grid, borders, and a gradient chip in first col */}
+                {[...Array(6)].map((_, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "3fr 3fr 2fr",
+                      alignItems: "center",
+                      gap: 8,
+                      padding: "8px 10px",
+                      textAlign: "left",
+                      borderTop: "1px solid rgba(0,0,0,0.12)",
+                    }}
+                  >
+                    <span
+                      style={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        backgroundImage: "linear-gradient(75deg, #172554 0%, #435078 100%)",
+                        color: "transparent",
+                        borderRadius: 6,
+                        padding: "4px 8px",
+                        lineHeight: 1,
+                        display: "inline-block",
+                        justifySelf: "start",
+                        maxWidth: "100%",
+                        height: 18,
+                        animation: "skeletonPulse 1200ms ease-in-out infinite",
+                      }}
+                    />
+                    <span
+                      style={{
+                        backgroundColor: "rgba(0,0,0,0.06)",
+                        borderRadius: 6,
+                        height: 16,
+                        animation: "skeletonPulse 1200ms ease-in-out infinite",
+                      }}
+                    />
+                    <span
+                      style={{
+                        justifySelf: "end",
+                        textAlign: "right",
+                        backgroundColor: "rgba(0,0,0,0.06)",
+                        borderRadius: 6,
+                        height: 16,
+                        width: 32,
+                        animation: "skeletonPulse 1200ms ease-in-out infinite",
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
             ) : bikers.length === 0 ? (
               <div style={{ width: 350, color: "#000" }}>No bikers yet.</div>
             ) : (
@@ -1120,7 +1262,7 @@ export default function Home() {
                   >
                     <span
                       style={{
-                        backgroundColor: "#ffffff",
+                        backgroundColor: "rgba(255,255,255,0.90)",
                         color: "#000",
                         borderRadius: 6,
                         padding: "4px 8px",
@@ -1134,7 +1276,7 @@ export default function Home() {
                     </span>
                     <span
                       style={{
-                        backgroundColor: "#ffffff",
+                        backgroundColor: "rgba(255,255,255,0.90)",
                         color: "#000",
                         borderRadius: 6,
                         padding: "4px 8px",
@@ -1148,7 +1290,7 @@ export default function Home() {
                     </span>
                     <span
                       style={{
-                        backgroundColor: "#ffffff",
+                        backgroundColor: "rgba(255,255,255,0.90)",
                         color: "#000",
                         borderRadius: 6,
                         padding: "4px 8px",
