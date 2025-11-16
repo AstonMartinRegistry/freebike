@@ -690,38 +690,35 @@ export default function Home() {
                     }}
                   >
                     Stanford Lab Registry
-                  </a>
-                </div>
+                    </a>
+                  </div>
                 <div style={{ marginLeft: 10, color: "#000", fontWeight: 400 }}>
                   <a
-                    href="#"
+                    href="https://chat.whatsapp.com/Cl0sBkB9wivHKanOJNHAIN?mode=ems_share_c"
+                    target="_blank"
+                    rel="noreferrer"
                     style={{
                       color: "inherit",
                       textDecoration: "underline",
                     }}
                   >
-                    SU&nbsp;Buffet&nbsp;Response&nbsp;Team — whatsapp link
+                    SU&nbsp;Buffet&nbsp;Response&nbsp;Team
                   </a>
                 </div>
                 <div style={{ marginLeft: 10, color: "#000", fontWeight: 400 }}>
-                  Stanford&nbsp;Free&nbsp;Bike&nbsp;Registry
+                  <a
+                    href="https://stanfordbikeregistry.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      color: "inherit",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    Stanford&nbsp;Bike&nbsp;Registry
+                  </a>
                 </div>
               </div>
-            </div>
-            <div
-              style={{
-                border: "none",
-                borderRadius: 8,
-                backgroundColor: "#e6e6e6",
-                padding: "6px 10px",
-                boxSizing: "border-box",
-                color: "#000000",
-                fontSize: 14,
-                justifySelf: "center",
-                textAlign: "center",
-              }}
-            >
-              Ver Natus
             </div>
           </section>
         ) : null}
@@ -1147,6 +1144,28 @@ export default function Home() {
           </section>
         ) : null}
       </main>
+      {showAbout ? (
+        <div
+          aria-label="ver-natus-sticker"
+          style={{
+            position: "fixed",
+            left: "50%",
+            transform: "translateX(-50%)",
+            bottom: 40,
+            zIndex: 4,
+            backgroundColor: "#e6e6e6",
+            color: "#000000",
+            fontSize: 14,
+            padding: "2px 6px",
+            borderRadius: 0,
+            lineHeight: 1,
+            boxShadow: "none",
+            pointerEvents: "none",
+          }}
+        >
+          Ver Natus
+        </div>
+      ) : null}
     </div>
   );
 }
