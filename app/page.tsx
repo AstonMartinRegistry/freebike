@@ -7,14 +7,16 @@ type CalendarProps = {
   bike: string;
   onSelectDate: (date: Date) => void;
   onMonthChange?: () => void;
+  bookedExternal?: Set<string>; // optional preloaded booked ISO dates for this bike
 };
 
-function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
+function Calendar({ bike, onSelectDate, onMonthChange, bookedExternal }: CalendarProps) {
   const now = new Date();
   const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const [displayYear, setDisplayYear] = useState(now.getFullYear());
   const [displayMonth, setDisplayMonth] = useState(now.getMonth()); // 0-11
   const [bookedSet, setBookedSet] = useState<Set<string>>(new Set());
+  const [selectedDay, setSelectedDay] = useState<number | null>(null);
 
   // Limit navigation to current month up to current month + 2
   const nowYear = now.getFullYear();
@@ -37,6 +39,7 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
     } else {
       setDisplayMonth((m) => m - 1);
     }
+    setSelectedDay(null);
     if (onMonthChange) onMonthChange();
   };
 
@@ -49,19 +52,26 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
     } else {
       setDisplayMonth((m) => m + 1);
     }
+    setSelectedDay(null);
     if (onMonthChange) onMonthChange();
   };
 
   const handleSelect = (day: number) => {
     const selected = new Date(displayYear, displayMonth, day);
     if (selected < startOfToday) return; // block past dates
+    setSelectedDay(day);
     onSelectDate(selected);
   };
 
   const weekdayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  // Fetch already-booked days on month/bike change
+  // Initialize from external preloaded set if provided; otherwise fetch per-month
   useEffect(() => {
+    if (bookedExternal) {
+      setBookedSet(bookedExternal);
+      if (onMonthChange) onMonthChange();
+      return;
+    }
     const y = displayYear;
     const m = displayMonth + 1;
     fetch(`/api/availability?bike=${encodeURIComponent(bike)}&year=${y}&month=${m}`)
@@ -75,7 +85,7 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
         if (onMonthChange) onMonthChange();
       })
       .catch(() => setBookedSet(new Set()));
-  }, [bike, displayYear, displayMonth]);
+  }, [bike, displayYear, displayMonth, bookedExternal]);
 
   const atMin = displayYear === nowYear && displayMonth === nowMonth;
   const atMax = displayYear === maxYear && displayMonth === maxMonth;
@@ -139,6 +149,7 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
           const isPast = dateObj < startOfToday;
           const iso = new Date(Date.UTC(displayYear, displayMonth, day)).toISOString().slice(0, 10);
           const isAvailable = !bookedSet.has(iso);
+          const isSelected = selectedDay === day && !isPast && isAvailable;
           return (
             <button
               key={day}
@@ -151,8 +162,12 @@ function Calendar({ bike, onSelectDate, onMonthChange }: CalendarProps) {
                 border: "none",
                 backgroundImage: isPast || !isAvailable
                   ? "none"
-                  : "linear-gradient(75deg, #172554 0%, #435078 100%)",
-                backgroundColor: isPast || !isAvailable ? "rgba(0,0,0,0.06)" : "transparent",
+                  : (isSelected
+                      ? "none"
+                      : "linear-gradient(75deg, #172554 0%, #435078 100%)"),
+                backgroundColor: isPast || !isAvailable
+                  ? "rgba(0,0,0,0.06)"
+                  : (isSelected ? "rgba(0,0,0,0.30)" : "transparent"),
                 color: isPast || !isAvailable ? "rgba(0,0,0,0.45)" : "#ffffff",
                 cursor: isPast || !isAvailable ? "not-allowed" : "pointer",
                 fontFamily: "inherit",
@@ -301,6 +316,27 @@ export default function Home() {
   const [expandedOne, setExpandedOne] = useState(false);
   const [expandedTwo, setExpandedTwo] = useState(false);
   const [expandedThree, setExpandedThree] = useState(false);
+  const [bookedByBike, setBookedByBike] = useState<Record<string, Set<string>> | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/availability?all=1");
+        const json = await res.json().catch(() => ({}));
+        const booked = (json as any)?.bookedByBike || {};
+        const map: Record<string, Set<string>> = {};
+        for (const k in booked) {
+          map[k] = new Set(booked[k]);
+        }
+        if (!cancelled) setBookedByBike(map);
+      } catch {
+        if (!cancelled) setBookedByBike(null);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   const [selectedDateOne, setSelectedDateOne] = useState<string | null>(null);
   const [selectedDateTwo, setSelectedDateTwo] = useState<string | null>(null);
   const [selectedDateThree, setSelectedDateThree] = useState<string | null>(null);
@@ -346,6 +382,7 @@ export default function Home() {
       }}
     >
       <main style={{ display: "grid", gap: 16 }}>
+        {/* bookings preloaded in useEffect */}
         {/* Transparent container with two black-bordered rectangles */}
         <section
           aria-label="top panel"
@@ -552,6 +589,7 @@ export default function Home() {
               <div style={{ display: "grid", gap: 12 }}>
                 <Calendar
                   bike="bike-one"
+                  bookedExternal={bookedByBike?.["bike-one"]}
                   onSelectDate={(d) => setSelectedDateOne(d.toISOString().slice(0, 10))}
                   onMonthChange={() => setSelectedDateOne(null)}
                 />
@@ -791,6 +829,7 @@ export default function Home() {
               <div style={{ display: "grid", gap: 12 }}>
                 <Calendar
                   bike="bike-two"
+                  bookedExternal={bookedByBike?.["bike-two"]}
                   onSelectDate={(d) => setSelectedDateTwo(d.toISOString().slice(0, 10))}
                   onMonthChange={() => setSelectedDateTwo(null)}
                 />
@@ -930,6 +969,7 @@ export default function Home() {
               <div style={{ display: "grid", gap: 12 }}>
                 <Calendar
                   bike="bike-three"
+                  bookedExternal={bookedByBike?.["bike-three"]}
                   onSelectDate={(d) => setSelectedDateThree(d.toISOString().slice(0, 10))}
                   onMonthChange={() => setSelectedDateThree(null)}
                 />
