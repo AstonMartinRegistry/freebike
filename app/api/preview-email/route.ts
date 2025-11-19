@@ -25,14 +25,50 @@ export async function GET(req: NextRequest) {
   // Get bike-specific location address
   function getBikeLocation(bikeId: string): string {
     const key = String(bikeId || "").toLowerCase();
-    if (key === "bike-one" || key === "1") return "123 Main Street, Stanford, CA 94305";
+    if (key === "bike-one" || key === "1") return "Rains, Building 218, Ayrshire Farm Lane, Stanford, CA. Location of the bike rack is here https://maps.app.goo.gl/3b9j4efdeV8DrRjr7";
     if (key === "bike-two" || key === "2") return "456 University Avenue, Palo Alto, CA 94301";
     if (key === "bike-three" || key === "3") return "789 Campus Drive, Stanford, CA 94305";
     return "Location TBD";
   }
   
+  // Get bike-specific location image URLs from Supabase Storage
+  function getBikeLocationImages(bikeId: string): string[] {
+    const key = String(bikeId || "").toLowerCase();
+    
+    if (key === "bike-one" || key === "1") {
+      return [
+        "https://ikfqwjveyheuatnfvxzq.supabase.co/storage/v1/object/public/bikes/PXL_20251119_203416203.jpg",
+        "https://ikfqwjveyheuatnfvxzq.supabase.co/storage/v1/object/public/bikes/PXL_20251119_203650604.jpg"
+      ];
+    }
+    if (key === "bike-two" || key === "2") {
+      return [
+        "https://ikfqwjveyheuatnfvxzq.supabase.co/storage/v1/object/public/bikes/PXL_20251119_210900021.jpg",
+        "https://ikfqwjveyheuatnfvxzq.supabase.co/storage/v1/object/public/bikes/PXL_20251119_210923340.jpg"
+      ];
+    }
+    if (key === "bike-three" || key === "3") {
+      // Fallback to placeholder for bike-three until images are provided
+      return [
+        "https://via.placeholder.com/400x200?text=Bike+Location+1",
+        "https://via.placeholder.com/400x200?text=Bike+Location+2"
+      ];
+    }
+    
+    // Default fallback
+    return [
+      "https://via.placeholder.com/400x200?text=Bike+Location+1",
+      "https://via.placeholder.com/400x200?text=Bike+Location+2"
+    ];
+  }
+  
   const bikeName = getBikeName(bike);
   const bikeLocation = getBikeLocation(bike);
+  const locationImages = getBikeLocationImages(bike);
+  
+  // Determine preposition based on bike
+  const bikeKey = String(bike || "").toLowerCase();
+  const locationPreposition = (bikeKey === "bike-one" || bikeKey === "1") ? "in front of" : "at";
   
   // Format dates for booking period
   const bookingDate = new Date(day + "T00:00:00Z");
@@ -96,10 +132,10 @@ export async function GET(req: NextRequest) {
           <li>bike must be returned to the same location (your booking is valid from 6am on ${bookingDateStr} to 6am on ${nextDateStr}. Please be timely, others depend on you)</li>
         </ul>
         <p style="margin-top: 20px;"><u>Where to pick up your bike</u></p>
-        <p>Your bike is located at ${bikeLocation}</p>
+        <p>Your bike is located ${locationPreposition} ${bikeLocation}</p>
         <div class="location">
-          <img src="https://via.placeholder.com/400x200?text=Bike+Location+1" alt="Bike Location 1" class="location-image" />
-          <img src="https://via.placeholder.com/400x200?text=Bike+Location+2" alt="Bike Location 2" class="location-image" />
+          <img src="${locationImages[0]}" alt="Bike Location 1" class="location-image" />
+          <img src="${locationImages[1]}" alt="Bike Location 2" class="location-image" />
         </div>
         <p style="margin-top: 20px;"><u>Need to cancel?</u></p>
         <p>To cancel your reservation, just reply with "cancel"</p>
