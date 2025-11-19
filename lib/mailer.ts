@@ -49,9 +49,25 @@ export async function sendBookingEmail(params: {
   function getBikeLocation(bikeId: string): string {
     const key = String(bikeId || "").toLowerCase();
     if (key === "bike-one" || key === "1") return "Rains, Building 218, Ayrshire Farm Lane, Stanford, CA. Location of the bike rack is here https://maps.app.goo.gl/3b9j4efdeV8DrRjr7";
-    if (key === "bike-two" || key === "2") return "456 University Avenue, Palo Alto, CA 94301";
-    if (key === "bike-three" || key === "3") return "789 Campus Drive, Stanford, CA 94305";
+    if (key === "bike-two" || key === "2") return "Rains, Building 223, Ayrshire Farm Lane, Stanford, CA. Location of the bike rack is here https://maps.app.goo.gl/ZzjWCAHnmdGEgPi69";
+    if (key === "bike-three" || key === "3") return "Palo Alto Caltrain Station, University Ave, Palo Alto, CA. The bike rack is located here https://maps.app.goo.gl/hQw1mJY1YBo3pr7YA";
     return "Location TBD";
+  }
+  
+  // Get bike-specific combination
+  function getBikeCombination(bikeId: string): string {
+    const key = String(bikeId || "").toLowerCase();
+    if (key === "bike-one" || key === "1") return "8212";
+    if (key === "bike-two" || key === "2") return "6760";
+    if (key === "bike-three" || key === "3") return "3389";
+    return "";
+  }
+  
+  // Format location text for HTML with bolded maps link
+  function formatLocationForHTML(location: string): string {
+    // Find and bold the maps link (URL starting with https://maps.app.goo.gl/)
+    const urlRegex = /(https:\/\/maps\.app\.goo\.gl\/[^\s]+)/g;
+    return location.replace(urlRegex, '<strong>$1</strong>');
   }
   
   // Get bike-specific location image URLs from Supabase Storage
@@ -71,10 +87,9 @@ export async function sendBookingEmail(params: {
       ];
     }
     if (key === "bike-three" || key === "3") {
-      // Fallback to placeholder for bike-three until images are provided
       return [
-        "https://via.placeholder.com/400x200?text=Bike+Location+1",
-        "https://via.placeholder.com/400x200?text=Bike+Location+2"
+        "https://ikfqwjveyheuatnfvxzq.supabase.co/storage/v1/object/public/bikes/PXL_20251119_223045149.jpg",
+        "https://ikfqwjveyheuatnfvxzq.supabase.co/storage/v1/object/public/bikes/PXL_20251119_223104643.jpg"
       ];
     }
     
@@ -87,11 +102,12 @@ export async function sendBookingEmail(params: {
   
   const bikeName = getBikeName(params.bike);
   const bikeLocation = getBikeLocation(params.bike);
+  const bikeCombination = getBikeCombination(params.bike);
   const locationImages = getBikeLocationImages(params.bike);
   
   // Determine preposition based on bike
   const bikeKey = String(params.bike || "").toLowerCase();
-  const locationPreposition = (bikeKey === "bike-one" || bikeKey === "1") ? "in front of" : "at";
+  const locationPreposition = (bikeKey === "bike-one" || bikeKey === "1" || bikeKey === "bike-two" || bikeKey === "2") ? "in front of" : "at";
   
   // Format dates for booking period
   const bookingDate = new Date(params.day + "T00:00:00Z");
@@ -105,21 +121,22 @@ export async function sendBookingEmail(params: {
     `Your booking for the ${bikeName} on ${params.day} has been recorded! We are excited to have you riding with us :D`,
     "",
     "Some rules",
-    "- please check brakes and tires before riding",
-    "- always lock bike when unattended",
-    `- bike must be returned to the same location (your booking is valid from 6am on ${bookingDateStr} to 6am on ${nextDateStr}. Please be timely, others depend on you)`,
+    `- Your booking is valid from 6am on ${bookingDateStr} to 6am on ${nextDateStr}. Please be timely, others depend on you`,
+    "- Please check brakes and tires before riding",
+    "- Always lock bike when unattended",
+    "- Bike must be returned to the same, locked",
     "",
     "Where to pick up your bike",
     "",
-    `Your bike is located ${locationPreposition} ${bikeLocation}`,
+    `Your bike is located ${locationPreposition} ${bikeLocation} and the combination to unlock the bike is ${bikeCombination}`,
     "",
     "Need to cancel?",
     "To cancel your reservation, just reply with \"cancel\"",
     "",
     "Questions or Concerns?",
-    "If anything comes up, feel free to text or call (650) 555-1234, happy to help!",
+    "If anything comes up, feel free to text or call 650-470-9760, happy to help!",
     "",
-    "I thought of that while riding my bicyle",
+    "\"I thought of that while riding my bicyle\"",
     "- Albert Einstein",
   ].join("\n");
 
@@ -173,12 +190,13 @@ export async function sendBookingEmail(params: {
         <p>Your booking for the <strong>${bikeName}</strong> on <strong>${params.day}</strong> has been recorded! We are excited to have you riding with us :D</p>
         <p style=\"margin-top: 20px;\"><u>Some rules</u></p>
         <ul>
-          <li>please check brakes and tires before riding</li>
-          <li>always lock bike when unattended</li>
-          <li>bike must be returned to the same location (your booking is valid from 6am on ${bookingDateStr} to 6am on ${nextDateStr}. Please be timely, others depend on you)</li>
+          <li>Your booking is valid from <strong>6am</strong> on <strong>${bookingDateStr}</strong> to <strong>6am</strong> on <strong>${nextDateStr}</strong>. Please be timely, others depend on you</li>
+          <li>Please check brakes and tires before riding</li>
+          <li><strong>Always</strong> lock bike when unattended</li>
+          <li><strong>Bike must be returned to the same, <u>locked</u></strong></li>
         </ul>
         <p style=\"margin-top: 20px;\"><u>Where to pick up your bike</u></p>
-        <p>Your bike is located ${locationPreposition} ${bikeLocation}</p>
+        <p>Your bike is located ${locationPreposition} ${formatLocationForHTML(bikeLocation)} and the combination to unlock the bike is <strong>${bikeCombination}</strong></p>
         <div class=\"location\">
           <img src=\"${locationImages[0]}\" alt=\"Bike Location 1\" class=\"location-image\" />
           <img src=\"${locationImages[1]}\" alt=\"Bike Location 2\" class=\"location-image\" />
@@ -186,9 +204,9 @@ export async function sendBookingEmail(params: {
         <p style=\"margin-top: 20px;\"><u>Need to cancel?</u></p>
         <p>To cancel your reservation, just reply with "cancel"</p>
         <p style=\"margin-top: 20px;\"><u>Questions or Concerns?</u></p>
-        <p>If anything comes up, feel free to text or call <strong>(650) 555-1234</strong>, happy to help!</p>
+        <p>If anything comes up, feel free to text or call <strong>650-470-9760</strong>, happy to help!</p>
         <div class=\"quote\">
-          <p style=\"text-align: center; font-style: italic; margin: 0;\">I thought of that while riding my bicyle</p>
+          <p style=\"text-align: center; font-style: italic; margin: 0;\">\"I thought of that while riding my bicyle\"</p>
           <p class=\"quote-author\" style=\"margin-top: 8px; margin-bottom: 0;\">- Albert Einstein</p>
         </div>
       </body>
