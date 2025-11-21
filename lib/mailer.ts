@@ -193,7 +193,7 @@ export async function sendBookingEmail(params: {
           <li>Your booking is valid from <strong>6am</strong> on <strong>${bookingDateStr}</strong> to <strong>6am</strong> on <strong>${nextDateStr}</strong>. Please be timely, others depend on you</li>
           <li>Please check brakes and tires before riding</li>
           <li><strong>Always</strong> lock bike when unattended</li>
-          <li><strong>Bike must be returned to the same, <u>locked</u></strong></li>
+          <li><strong>Bike must be returned to the same rack, <u>locked</u></strong></li>
         </ul>
         <p style=\"margin-top: 20px;\"><u>Where to pick up your bike</u></p>
         <p>Your bike is located ${locationPreposition} ${formatLocationForHTML(bikeLocation)} and the combination to unlock the bike is <strong>${bikeCombination}</strong></p>
@@ -206,7 +206,7 @@ export async function sendBookingEmail(params: {
         <p style=\"margin-top: 20px;\"><u>Questions or Concerns?</u></p>
         <p>If anything comes up, feel free to text or call <strong>650-470-9760</strong>, happy to help!</p>
         <div class=\"quote\">
-          <p style=\"text-align: center; font-style: italic; margin: 0;\">\"I thought of that while riding my bicyle\"</p>
+          <p style=\"text-align: center; font-style: italic; margin: 0;\">\"I thought of that while riding my bicycle\"</p>
           <p class=\"quote-author\" style=\"margin-top: 8px; margin-bottom: 0;\">- Albert Einstein</p>
         </div>
       </body>
