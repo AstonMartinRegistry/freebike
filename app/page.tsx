@@ -1343,6 +1343,18 @@ export default function Home() {
             )}
           </section>
         ) : null}
+        {showBikers ? (
+          <div
+            aria-label="spacer"
+            style={{
+              width: 350,
+              minHeight: 300,
+              backgroundColor: "transparent",
+              border: "none",
+              borderRadius: 8,
+            }}
+          />
+        ) : null}
       </main>
       {showAbout ? (
         <div
