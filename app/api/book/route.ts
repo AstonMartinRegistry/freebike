@@ -33,22 +33,28 @@ export async function POST(req: NextRequest) {
   // Availability is implicit: a day is available unless already booked.
 
   // Enforce max 3 days per month per person (across all bikes)
-  const year = d.getUTCFullYear();
-  const month = d.getUTCMonth();
-  const start = new Date(Date.UTC(year, month, 1)).toISOString().slice(0, 10);
-  const end = new Date(Date.UTC(year, month + 1, 0)).toISOString().slice(0, 10);
+  // Skip limit check for unlimited users
+  const UNLIMITED_EMAILS = ["dkiss@stanford.edu"];
+  const hasUnlimitedSlots = UNLIMITED_EMAILS.includes(email.toLowerCase());
+  
+  if (!hasUnlimitedSlots) {
+    const year = d.getUTCFullYear();
+    const month = d.getUTCMonth();
+    const start = new Date(Date.UTC(year, month, 1)).toISOString().slice(0, 10);
+    const end = new Date(Date.UTC(year, month + 1, 0)).toISOString().slice(0, 10);
 
-  const { count, error: cntErr } = await supabaseServer
-    .from("bookings")
-    .select("id", { count: "exact", head: true })
-    .eq("email", email)
-    .gte("day", start)
-    .lte("day", end);
-  if (cntErr) {
-    return NextResponse.json({ error: cntErr.message }, { status: 500 });
-  }
-  if ((count ?? 0) >= 3) {
-    return NextResponse.json({ error: "Monthly booking limit reached (3)" }, { status: 400 });
+    const { count, error: cntErr } = await supabaseServer
+      .from("bookings")
+      .select("id", { count: "exact", head: true })
+      .eq("email", email)
+      .gte("day", start)
+      .lte("day", end);
+    if (cntErr) {
+      return NextResponse.json({ error: cntErr.message }, { status: 500 });
+    }
+    if ((count ?? 0) >= 3) {
+      return NextResponse.json({ error: "Monthly booking limit reached (3)" }, { status: 400 });
+    }
   }
 
   // Prevent double booking of the same day for a given bike
