@@ -7,6 +7,10 @@ export const runtime = "nodejs";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const all = searchParams.get("all");
+  
+  // Blocked bikes - beige city bike and grey city bike
+  const BLOCKED_BIKES = ["bike-one", "bike-three"];
+  
   if (all) {
     // Aggregate bookings for all bikes for the next ~3 months
     const now = new Date();
@@ -30,6 +34,20 @@ export async function GET(req: NextRequest) {
       if (!bookedByBike[b]) bookedByBike[b] = [];
       bookedByBike[b].push((row as any).day);
     }
+    
+    // For blocked bikes, mark all days in range as booked
+    for (const blockedBike of BLOCKED_BIKES) {
+      if (!bookedByBike[blockedBike]) bookedByBike[blockedBike] = [];
+      const current = new Date(start);
+      while (current <= end) {
+        const dayStr = current.toISOString().slice(0, 10);
+        if (!bookedByBike[blockedBike].includes(dayStr)) {
+          bookedByBike[blockedBike].push(dayStr);
+        }
+        current.setUTCDate(current.getUTCDate() + 1);
+      }
+    }
+    
     return NextResponse.json({
       range: { start: start.toISOString().slice(0, 10), end: end.toISOString().slice(0, 10) },
       bookedByBike,
@@ -45,6 +63,17 @@ export async function GET(req: NextRequest) {
 
   const start = new Date(Date.UTC(year, month - 1, 1));
   const end = new Date(Date.UTC(year, month, 0)); // last day of month
+
+  // For blocked bikes, return all days in the month as booked
+  if (BLOCKED_BIKES.includes(bike)) {
+    const allDaysInMonth: string[] = [];
+    const current = new Date(start);
+    while (current <= end) {
+      allDaysInMonth.push(current.toISOString().slice(0, 10));
+      current.setUTCDate(current.getUTCDate() + 1);
+    }
+    return NextResponse.json({ bike, year, month, bookedDays: allDaysInMonth });
+  }
 
   const { data, error } = await supabaseServer
     .from("bookings")

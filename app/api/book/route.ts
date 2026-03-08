@@ -14,6 +14,12 @@ export async function POST(req: NextRequest) {
   const email = String(body?.email || "").trim();
   const day = String(body?.day || ""); // ISO YYYY-MM-DD
 
+  // Block bookings for beige city bike and grey city bike
+  const BLOCKED_BIKES = ["bike-one", "bike-three"];
+  if (BLOCKED_BIKES.includes(bike)) {
+    return NextResponse.json({ error: "This bike is currently unavailable for booking" }, { status: 400 });
+  }
+
   if (!email || !day) {
     return NextResponse.json({ error: "Missing email or day" }, { status: 400 });
   }
